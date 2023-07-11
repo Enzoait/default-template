@@ -1,0 +1,71 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+ 
+ <changeSet author="CardRequest-type" id="1">
+ <insert tableName="T_SOFTTYPE">
+            <column name="display_name" value="CardRequestType" />
+            <column name="logical_name" value="CardRequestType"/>
+            <column name="logical_path" value="com.katappult.cloud.platform.generated.types.CardRequestType"/>
+            <column name="base_class" value="com.katappult.cloud.platform.generated.model.CardRequest"/>
+            <column name="is_instanciable" value="1"/>
+            <column name="is_enabled" value="1"/>
+            <column name="discrimn_col" value="0"/>
+            <column name="container_oid" value="1"/>
+            <column name="parent_id" valueComputed="NULL" />
+            <column name="lifecycle_master_id" valueComputed="(select oid from t_lifecyclemaster where name='CardRequest lifecycle')"/>
+        </insert>
+ <insert tableName="T_SOFTTYPE">
+            <column name="display_name" value="NewCard" />
+            <column name="logical_name" value="NewCard"/>
+            <column name="logical_path" value="com.katappult.cloud.platform.generated.types.CardRequestType/NewCard"/>
+            <column name="base_class" value="com.katappult.cloud.platform.generated.model.CardRequest"/>
+            <column name="is_instanciable" value="1"/>
+            <column name="is_enabled" value="1"/>
+            <column name="discrimn_col" value="0"/>
+            <column name="container_oid" value="1"/>
+            <column name="parent_id" valueComputed="(select oid from T_SOFTTYPE where logical_path='com.katappult.cloud.platform.generated.types.CardRequestType')" />
+            <column name="lifecycle_master_id" valueComputed="(select oid from t_lifecyclemaster where name='')"/>
+        </insert>
+ <insert tableName="T_SOFTTYPE">
+            <column name="display_name" value="ReNewCard" />
+            <column name="logical_name" value="ReNewCard"/>
+            <column name="logical_path" value="com.katappult.cloud.platform.generated.types.CardRequestType/ReNewCard"/>
+            <column name="base_class" value="com.katappult.cloud.platform.generated.model.CardRequest"/>
+            <column name="is_instanciable" value="1"/>
+            <column name="is_enabled" value="1"/>
+            <column name="discrimn_col" value="0"/>
+            <column name="container_oid" value="1"/>
+            <column name="parent_id" valueComputed="(select oid from T_SOFTTYPE where logical_path='com.katappult.cloud.platform.generated.types.CardRequestType')" />
+            <column name="lifecycle_master_id" valueComputed="(select oid from t_lifecyclemaster where name='')"/>
+        </insert>
+ <insert tableName="T_SOFTTYPE">
+            <column name="display_name" value="BlockCard" />
+            <column name="logical_name" value="BlockCard"/>
+            <column name="logical_path" value="com.katappult.cloud.platform.generated.types.CardRequestType/BlockCard"/>
+            <column name="base_class" value="com.katappult.cloud.platform.generated.model.CardRequest"/>
+            <column name="is_instanciable" value="1"/>
+            <column name="is_enabled" value="1"/>
+            <column name="discrimn_col" value="0"/>
+            <column name="container_oid" value="1"/>
+            <column name="parent_id" valueComputed="(select oid from T_SOFTTYPE where logical_path='com.katappult.cloud.platform.generated.types.CardRequestType')" />
+            <column name="lifecycle_master_id" valueComputed="(select oid from t_lifecyclemaster where name='')"/>
+        </insert>
+ <insert tableName="T_SOFTTYPE">
+            <column name="display_name" value="UnBlockCard" />
+            <column name="logical_name" value="UnBlockCard"/>
+            <column name="logical_path" value="com.katappult.cloud.platform.generated.types.CardRequestType/UnBlockCard"/>
+            <column name="base_class" value="com.katappult.cloud.platform.generated.model.CardRequest"/>
+            <column name="is_instanciable" value="1"/>
+            <column name="is_enabled" value="1"/>
+            <column name="discrimn_col" value="0"/>
+            <column name="container_oid" value="1"/>
+            <column name="parent_id" valueComputed="(select oid from T_SOFTTYPE where logical_path='com.katappult.cloud.platform.generated.types.CardRequestType')" />
+            <column name="lifecycle_master_id" valueComputed="(select oid from t_lifecyclemaster where name='')"/>
+        </insert>
+ 
+ </changeSet>
+
+</databaseChangeLog>

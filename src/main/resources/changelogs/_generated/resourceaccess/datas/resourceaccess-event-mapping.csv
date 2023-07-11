@@ -1,0 +1,8 @@
+event_key;event_class
+
+PRE_CREATE_RESOURCEACCESS;com.katappult.cloud.platform.generated.model.event.PreCreateResourceAccess
+PRE_DELETE_RESOURCEACCESS;com.katappult.cloud.platform.generated.model.event.PreDeleteResourceAccess
+PRE_UPDATE_RESOURCEACCESS;com.katappult.cloud.platform.generated.model.event.PreUpdateResourceAccess
+POST_CREATE_RESOURCEACCESS;com.katappult.cloud.platform.generated.model.event.PostCreateResourceAccess
+POST_DELETE_RESOURCEACCESS;com.katappult.cloud.platform.generated.model.event.PostDeleteResourceAccess
+POST_UPDATE_RESOURCEACCESS;com.katappult.cloud.platform.generated.model.event.PostUpdateResourceAccess

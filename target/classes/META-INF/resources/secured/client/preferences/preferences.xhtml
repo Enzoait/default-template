@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+        <h:form>
+            <table cellpadding="7">
+                <ui:repeat value="#{userSessionMap.currentUserSessionDatas.userPreferences}" var="preference">
+                    <tr>
+                        <td>
+                            <p:outputLabel>#{preference.displayedName}</p:outputLabel>
+                        </td>
+                        <td>
+                            <p:selectOneMenu id="advanced" value="#{preference.value}" name="#{preference.key}" style="width:180px">
+                                <p:ajax listener="#{userSessionMap.handleUserPreferenceChange}"/>
+                                <f:selectItems value="#{userSessionMap.getListValues(preference.listValue)}" var="listValue"
+                                               itemLabel="#{listValue.value}" itemValue="#{listValue.savedValue}"/>
+                            </p:selectOneMenu>
+                        </td>
+                    </tr>
+                </ui:repeat>
+            </table>
+        </h:form>
+</ui:composition>

@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <p:dataTable var="organisation" value="#{usersManagementController.organisationsOfUser}"
+                 styleClass="mt-3"
+                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} élément(s)">
+
+        <p:column headerText="Organisation" width="20%">
+            <a href="/secured/admin/users/userDetails.xhtml?id=#{organisation.account.oid}" > <h:outputText value="#{organisation.account.ownerSummary}" /></a>
+        </p:column>
+
+        <p:column headerText="Roles" width="60%">
+            <p:selectCheckboxMenu id="multiple" value="#{organisation.rolesInOrganisation}"
+                                  style="min-width: 15rem" panelStyle="width: 20rem" scrollHeight="250"
+                                  converter="#{userRoleFacesConverter}"
+                                  updateLabel="true"
+                                  multiple="true" filter="false">
+                <p:ajax event="change" listener="#{organisation.onRoleSelectionChange}"/>
+                <f:selectItems value="#{organisation.allRoles}" var="role" itemLabel="#{role.name}" itemValue="#{role}"/>
+            </p:selectCheckboxMenu>
+
+        </p:column>
+
+        <p:column headerText="Membre depuis" width="20%">
+            <h:outputText value="#{organisation.account.lastConnectionDate}" />
+        </p:column>
+
+
+
+    </p:dataTable>
+
+</ui:composition>

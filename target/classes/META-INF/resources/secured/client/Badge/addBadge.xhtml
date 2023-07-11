@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">#{userSessionMap.applicationFriendlyName} - New #{badgeController.entityName}</ui:define>
+
+    <ui:define name="content">
+
+        <div class="col-12">
+            <div class="mb-2">
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Zero" outcome="/home.xhtml"/>
+                        <p:menuitem value="Badge" outcome="/secured/client/Badge/badgeList.xhtml"/>
+                        <p:menuitem value="New Badge"/>
+                    </p:breadCrumb>
+                </h:form>
+            </div>
+
+            <div class="card">
+                <h:form id="create_form">
+                    <p:messages id="messages" showDetail="false" closable="true" escape="false">
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <h:panelGrid rendered="#{badgeController.isTypeOrLifecycleManaged}"
+                                 columns="3" cellpadding="7"  style="width:600px"
+                                 columnClasses="table-col" styleClass="mb-3">
+                        <h:outputLabel for="selectedLegacyType" value="Type"  required="true"/>
+                        <p:selectOneMenu  id="selectedLegacyType" value="#{badgeController.selectedLegacyType}"
+                                          style="min-width: 15rem" panelStyle="width: 20rem" scrollHeight="250"
+                                          converter="#{typeFacesConverter}"  required="true">
+                            <f:selectItems value="#{badgeController.selectableLegacyType}"  var="type" itemLabel="#{type.displayName}"/>
+                            <f:facet name="footer">
+                                <p:divider styleClass="mt-0" />
+                                <h:outputText value="Select type" style="font-weight:bold;"/>
+                            </f:facet>
+                        </p:selectOneMenu>
+                        <p:message for="selectedLegacyType" display="icon"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3" cellpadding="7" styleClass="mb-3" id="createPanel"
+                                 columnClasses="table-col" style="width:600px">
+
+                        <h:outputLabel for="identification" value="Identification"/>
+<p:inputText id="identification" value="#{badgeController.newElement.identification}" required="true"/>
+<p:message for="identification" display="icon"/>
+<h:outputLabel for="expirationDate" value="Expiration date"/>
+<p:datePicker id="expirationDate" value="#{badgeController.newElement.expirationDate}" required="true"/>
+<p:message for="expirationDate" display="icon"/>
+ <h:outputLabel for="isActive" value="Active"/>
+ <p:selectBooleanCheckbox id="isActive" value="#{badgeController.newElement.isActive}" required="true"/>
+<p:message for="isActive" display="icon"/>
+<!--COLUMNS-->
+
+                    </h:panelGrid>
+
+                    <p:commandButton value="Cr&#233;er" style="width: 5rem"
+                                     styleClass="mt-4"
+                                     immediate="false" ajax="false"
+                                     process="create_form @this"
+                                     update="create_form messages createPanel growl @this"
+                                     action="#{badgeController._doCreateNewElementAction}"/>
+
+                    <h:link value="Tous les &#233;l&#233;ments"
+                            styleClass="mt-4 ml-4"
+                            outcome="/secured/client/Badge/badgeList.xhtml"/>
+                </h:form>
+            </div>
+        </div>
+
+        <style type="text/css">
+            .table-col{
+                width: 25%;
+            }
+        </style>
+
+    </ui:define>
+</ui:composition>

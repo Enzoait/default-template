@@ -1,0 +1,6 @@
+{
+  "name": "ContainerSettings",
+  "version": "0.0.0",
+  "private": true,
+  "main": "ContainerSettings.js"
+}

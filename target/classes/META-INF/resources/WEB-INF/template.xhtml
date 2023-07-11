@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="en">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <link rel="manifest" href="#{request.contextPath}/manifest.json"/>
+            <link rel="shortcut icon" type="image/png" sizes="200x200" href="#{request.contextPath}/images/favicon.png" />
+            <link rel="icon" type="image/png" sizes="200x200" href="#{request.contextPath}/images/favicon.png" />
+            <link href="/css/custom.css?v=#{userSessionMap.applicationVersion}" rel="stylesheet"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        </f:facet>
+
+        <title><ui:insert name="title">#{userSessionMap.applicationFriendlyName}</ui:insert></title>
+        <h:outputScript name="js/layout.js" library="siberia-layout" />
+        <h:outputScript name="js/prism.js" library="siberia-layout"/>
+        <ui:insert name="head"/>
+    </h:head>
+
+    <h:body>
+        <div class="layout-wrapper layout-horizontal layout-yana">
+        
+            
+            <div class="header">
+        <button class="hamburger"><img src="/img/hamburger.svg" alt="dérouler"/></button>
+        <div class="searchbar">
+            <input class="search_input" placeholder="Rechercher"/>
+            <img src="/img/Loupe.svg" alt="Rechercher" class="loupe"/>
+        </div>
+        <img src="/img/KatappultLogo.svg" alt="Logo Katappult" class="logo_header"/>
+        <button class="webapp_btn">Webapp live demo</button>
+    </div>
+    <div class="sidebar">
+        <div class="sidebar_header">
+            <img src="/img/KatappultLogo.svg" alt="Logo Katappult" class="logo"/>
+        </div>
+        <div class="sidebar_userbox">
+            <img src="/img/user_pfp.jpg" alt="Photo de profil" class="user_pfp"/>
+            <div class="user_and_role">
+                <p class="username">#{userSessionMap.currentUserSessionDatas.userFirstName}</p>
+                <p class="user_role">#{userSessionMap.currentUserSessionDatas.userLastName}</p>
+                <p class="user_role">#{userSessionMap.currentUserSessionDatas.hasRoleInApplicationContainer('ROLE_SUPERADMIN')
+                            || userSessionMap.currentUserSessionDatas.hasRoleInApplicationContainer('ROLE_ADMIN_BACKOFFICE') ? 'block' : 'none'}</p>
+            </div>
+            <img src="/img/three-dots-vertical.svg" alt="Plus" class="threedots"/>
+        </div>
+
+        <ui:include src="./menu.xhtml"/>
+
+        <div class="footer">
+            <p class="copyright">Katappult © 2023</p>
+            <p class="version">v 1.0</p>
+        </div>
+    </div>
+    <div class="mainpage">
+    	<ui:insert name="content"/>
+    </div>
+
+             
+        </div>
+
+        <h:outputStylesheet name="css/primeicons.css" library="siberia-layout"/>
+        <h:outputStylesheet name="css/primeflex.min.css" library="siberia-layout"/>
+        <h:outputStylesheet name="css/layout-yana.css" library="siberia-layout" />
+        <h:outputStylesheet name="css/override.css" library="siberia-layout"/>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    
+    <script>
+        $(document).ready(function(){
+            $('.sub-btn').click(function(){
+                $(this).next('.sub-menu').slideToggle();
+                $(this).find('.dropdown_arrow').toggleClass('rotate');
+            });
+            $('.hamburger').click(function(){
+                $(this).next('.sidebar').classList.toggle('active');
+            });
+            console.log('hello');
+        });
+    </script>
+	
+    
+    <script src="/js/toggleSidebarTable.js"></script>
+    </h:body>
+
+</html>

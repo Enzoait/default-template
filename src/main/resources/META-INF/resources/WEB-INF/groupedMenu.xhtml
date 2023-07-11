@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:sb="http://primefaces.org/siberia" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <div class="menu">
+            <div class="item"><a href="/home.xhtml"><img src="/img/home.svg" class="icon"/>Tableau de bord</a></div>
+            <div class="item">
+                <a class="sub-btn"><img src="/img/hammer-silhouette.svg" class="icon"/>Administration<img src="/img/right_arrow.svg" class="dropdown_arrow"/></a>
+                <div class="sub-menu">
+                    <a href="/secured/admin/users/usersList.xhtml" class="sub-item">Utilisateurs</a>
+                    <a href="/secured/admin/preferences/system.xhtml" class="sub-item">Pref. sys.</a>
+                </div>
+            </div>
+            <div class="item">
+                <a class="sub-btn"><img src="/img/hammer-silhouette.svg" class="icon"/>Business<img src="/img/right_arrow.svg" class="dropdown_arrow"/></a>
+                <div class="sub-menu">
+                    <a href="/secured/admin/Badge/badgeList.xhtml" class="sub-item">Badge</a>
+                    <a href="/secured/admin/Pointer/pointerList.xhtml" class="sub-item">Pointer</a>
+    				<a href="/secured/admin/CardRequest/cardRequestList.xhtml" class="sub-item">CardRequest</a>
+                    <a href="/secured/admin/ResourceAccess/resourceAccessList.xhtml" class="sub-item">RessouceAccess</a>
+                </div>
+            </div>
+            
+            <div class="item"><a href="profil.html"><img src="/img/person.svg" class="icon"/>Profil</a></div>
+            <div class="item"><a href="#"><img src="/img/logout.svg" class="icon"/>Déconnexion</a></div>
+    </div>
+
+    <style type="text/css">
+        .header-version-name{
+            color: #fff;
+            margin-top: 1.4rem;
+            border: 1px solid #fff;
+            border-radius: 12px;
+            height: 24px;
+            padding: 4px 8px;
+            margin-left: 2rem;
+            font-weight: 300;
+        }
+    </style>
+
+</ui:composition>

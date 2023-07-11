@@ -1,0 +1,6 @@
+{
+  "name": "AddPerson",
+  "version": "0.0.0",
+  "private": true,
+  "main": "AddPerson.js"
+}

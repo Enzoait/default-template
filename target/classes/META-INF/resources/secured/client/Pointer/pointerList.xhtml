@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">#{userSessionMap.applicationFriendlyName} - Liste #{pointerController.entityName}</ui:define>
+
+    <ui:define name="content">
+
+        <div class="col-12">
+            <p:growl id="growl_list" showDetail="true" />
+
+            <div class="mb-2">
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Zero" outcome="/home.xhtml"/>
+                        <p:menuitem value="Pointeur"/>
+                    </p:breadCrumb>
+                </h:form>
+            </div>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <div class="ui-inputgroup">
+                            <p:commandButton value="Filtrer"/>
+                            <p:inputText placeholder="Chercher un &#233;l&#233;ment..." value="#{pointerController.searchTerm}">
+                                <p:ajax event="keyup" listener="#{pointerController.onSearchInputFilterChange}" update="listDataModel" />
+                            </p:inputText>
+                        </div>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup>
+                        <h:form>
+                            <a href="/secured/client/Pointer/addPointer.xhtml?faces-redirect=true" class="pl-2 pr-2 mr-2 ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-button-info">
+                                <i class="pi pi-plus"></i>
+                            </a>
+                            <p:menuButton value="Options"  styleClass="ui-button ui-button-success">
+                                <p:menuitem icon="pi pi-plus" value="Ajouter" outcome="/secured/client/Pointer/addPointer.xhtml?faces-redirect=true"/>
+                                <p:menuitem icon="pi pi-refresh" value="Recharger" action="#{pointerController._doRefreshListAction}"
+                                            ajax="true" immediate="true"/>
+                                <p:menuitem icon="pi pi-cloud-upload" value="Importer" outcome="/secured/client/Pointer/importPointer.xhtml"/>
+                            </p:menuButton>
+                        </h:form>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable var="element" value="#{pointerController.listDataModel}" stripedRows="true" class="mt-2"
+                             paginator="true" paginatorPosition="bottom" rows="10" id="listDataModel"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} &#233;l&#233;ment(s)">
+
+                    <p:column headerText="ID" width="5%">
+                        <a href="/secured/client/Pointer/pointerDetails.xhtml?id=#{element.oid}" >#<h:outputText value="#{element.oid}" /></a>
+                    </p:column>
+
+                    <p:column headerText="Name">
+    <h:outputText value="#{element.name}" />
+</p:column>
+<p:column headerText="Description">
+    <h:outputText value="#{element.description}" />
+</p:column>
+<p:column headerText="Identifier">
+    <h:outputText value="#{element.identifier}" />
+</p:column>
+<p:column headerText="Location">
+    <h:outputText value="#{element.location}" />
+</p:column>
+<!--COLUMNS-->
+
+                    <p:column headerText="Statut" rendered="#{pointerController.isTypeOrLifecycleManaged}">
+                        <p:tag styleClass="mr-2 p-2" severity="warning" value="#{element.lifecycleInfo.currentState}"></p:tag>
+                    </p:column>
+
+                    <p:column styleClass="float-right text-right mr-3">
+                        <h:form>
+                            <p:linkButton icon="pi pi-info" styleClass="ui-button-outlined" outcome="/secured/client/Pointer/pointerDetails?id=#{element.oid}"/>
+                            <p:commandButton icon="pi pi-trash" styleClass="ui-button-outlined ml-1"
+                                             update="listDataModel growl_list @this"
+                                             ajax="true" immediate="true"
+                                             action="#{pointerController._doDeleteElement(element.oid)}">
+                            </p:commandButton>
+                        </h:form>
+                    </p:column>
+
+                </p:dataTable>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

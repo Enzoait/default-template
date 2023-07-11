@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,400i,500,600,700');
+html {
+  -webkit-font-smoothing: antialiased!important;
+  -moz-osx-font-smoothing: grayscale!important;
+  -ms-font-smoothing: antialiased!important;
+  overflow: auto;
+
+  font-size: 62.5%;
+  margin: 0;
+  height: 100%;
+}
+
+body{
+
+  --k-primary-50: #F8F8F8;
+  --k-primary-100: #EFEFEF;
+  --k-primary-200: #EEF3F5;
+  --k-primary-300: #DDE2E4;
+  --k-primary-400: #D1D8DC;
+  --k-primary-500: #B2BEC4;
+  --k-primary-600: #8C9DA6;
+  --k-primary-700: #667D89;
+  --k-primary-800: #3F5C6B;
+  --k-primary-900: #193C4E;
+
+  --k-secondary-50: #F1FFFE;
+  --k-secondary-100: #D5EDEB;
+  --k-secondary-200: #B9E2DE;
+  --k-secondary-300: #96D3CD;
+  --k-secondary-400: #73C4BD;
+  --k-secondary-500: #50B6AC;
+  --k-secondary-600: #2DA79C;
+  --k-secondary-700: #258B82;
+  --k-secondary-800: #1E6F68;
+  --k-secondary-900: #16534E;
+
+  --k-tertiary-50: #DFFBF0;
+  --k-tertiary-100: #CAF8E6;
+  --k-tertiary-200: #B0F5D9;
+  --k-tertiary-300: #96F2CD;
+  --k-tertiary-400: #7BEEC0;
+  --k-tertiary-500: #61EBB4;
+  --k-tertiary-600: #51C496;
+  --k-tertiary-700: #419D78;
+  --k-tertiary-800: #30755A;
+  --k-tertiary-900: #204E3C;
+
+  --k-bg-gradient-1: radial-gradient(137.05% 100% at 50% 0%, #E5DCFF 0%, #FAFFDA 61.79%, #FFFFFF 100%);;
+  --k-bg-gradient-2: radial-gradient(137.05% 100% at 50% 0%, #B9E2DE 5.59%, #D7FAEC 62.66%, #FEFEFE 100%);
+  --k-bg-gradient-3: radial-gradient(137.05% 100% at 50% 0%, #FFF9C7 5.59%, #61EBB4 51.56%, #D2DBDB 100%);
+  --k-bg-gradient-4: radial-gradient(137.05% 100% at 50% 0%, #96D3CD 5.59%, #D2FBEB 44.79%, #FFFFFF 100%);
+  --k-bg-gradient-5: radial-gradient(137.05% 100% at 50% 0%, #D1FBEA 5.21%, #EFEFEF 44.79%, #FFFFFF 100%);
+  --k-bg-gradient-6: radial-gradient(137.05% 100% at 50% 0%, #D7FDEE 5.59%, #EEF3F5 44.79%, #FFFFFF 100%);
+  --k-bg-gradient-7: radial-gradient(137.05% 100% at 50% 100%, #D5EDEB 0%, #C6FEE8 61.79%, #FFFFFF 100%);
+  --k-bg-gradient-8: radial-gradient(137.05% 100% at 50% 100%, #193C4E 5.59%, #2DA79C 62.66%, #D2DBDB 100%);
+  --k-bg-gradient-9: radial-gradient(137.05% 100% at 50% 100%, #193C4E 5.59%, #61EBB4 54.69%, #FFFFFF 100%);
+  --k-bg-gradient-10: radial-gradient(137.05% 100% at 50% 100%, #96D3CD 5.59%, #CEF8E7 44.79%, #FFFFFF 100%);
+  --k-bg-gradient-11: radial-gradient(137.05% 100% at 50% 100%, #C5FAE5 5.21%, #EDF7F7 44.79%, #FFFFFF 100%);
+  --k-bg-gradient-12: radial-gradient(137.05% 100% at 51.95% 100%, #D5EDEB 5.59%, #B9E2DE 44.79%, #FFFFFF 100%);
+
+  --k-bg-gradient-13: radial-gradient(137.05% 100% at 50% 0%, #FFF9C7 5.59%, #61EBB4 51.56%, #B0F5D9 100%);
+
+  --k-bg-shadow-1: 0px 1px 3px rgba(47, 43, 67, 0.1), inset 0px -1px 0px rgba(47, 43, 67, 0.1);
+  --k-bg-shadow-2: 0px 4px 8px rgba(47, 43, 67, 0.1), inset 0px -1px 0px rgba(47, 43, 67, 0.1);
+  --k-bg-shadow-3: 0px 6px 12px rgba(47, 43, 67, 0.1);
+  --k-bg-shadow-4: 0px 8px 24px rgba(47, 43, 67, 0.1);
+  --k-bg-shadow-5: 0px 12px 36px rgba(47, 43, 67, 0.12);
+  --k-bg-shadow-6: 0px 0px 0px 3px rgba(91, 221, 172, 0.35);
+
+  --input-color: #99A3BA;
+  --input-border: #CDD9ED;
+  --input-background: #fff;
+  --input-placeholder: #CBD1DC;
+  --input-border-focus: #275EFE;
+  --link-color:#4b8df8;
+  --button-color:#551A8B;
+  --accent-color: var(--k-tertiary-500);
+  --header-main-background:var(--accent-color);
+  --header-main-link-color:var(--k-primary-900);
+  --header-main-link-hover-color:var(--k-primary-500);
+  --main-menu-background:#fff;
+  --main-menu-link-color:var(--k-primary-900);
+  --add-to-cart-background:var(--link-color);
+  --add-to-favorite-background:var(--accent-color);
+  --border-color: #e0e0e0;
+  --pane-border-color:#f1f1f1;
+  --font-color:#333;
+  --header-version-name-border-color: var(--k-primary-900);
+
+  --shadow-1: rgba(0, 0, 0, 0.1);
+  --shadow-2: rgba(0, 0, 0, 0.2);
+  --shadow-5: rgba(0, 0, 0, 0.5);
+  --shadow-8: rgba(0, 0, 0, 0.8);
+  --shadow-inset: rgba(255, 255, 255, 0.5);
+
+  --wt-font-family-system: 'Roboto';
+
+  --ff-sans: var(--wt-font-family-system);
+  --ff-serif: var(--wt-font-family-system);
+  --ff-mono: var(--wt-font-family-system);
+  --ff-bold: var(--wt-font-family-system);
+  --theme-body-font-family: var(--wt-font-family-system);
+  --border-radius: 4px;
+
+  font-size:13px;
+  color: var(--font-color);
+  background: transparent;
+  line-height: 1.20;
+  margin: 0;
+  padding: 0;
+
+  font-weight: 400;
+  font-family: var(--wt-font-family-system);
+
+  -webkit-font-smoothing: antialiased;
+}
+
+@import "./_ie-fix.css";
+@import "./bootstrap.css";
+@import "./core.css";
+@import "./spinners.css";
+@import "./theme.css"; /** DONT REMOVE THIS! TEMPLATES USE THIS TO MANAGE THEME ON GENERATED PROJECTS*/
+
+#dt-form tr{height:30px;max-height: 30px;padding: 0}
+#dt-form td{height:30px;max-height: 30px;padding:0.2rem}
+
+.table tbody tr:last-child{
+  border: none;
+}
+
+.header-main{justify-content: space-between}
+
+.modal-open .modal{
+  background: rgba(255,255,255,0.7);
+}
+
+.modal-content{
+  box-shadow: 0 12px 28px 0 var(--shadow-2),0 2px 4px 0 var(--shadow-1),inset 0 0 0 1px var(--shadow-inset);
+  border-radius: 8px;
+}
+
+.header-main-logo img{
+  width: 200px;
+}
+
+a{
+  color: var(--link-color);
+}

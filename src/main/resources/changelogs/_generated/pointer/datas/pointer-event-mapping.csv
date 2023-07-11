@@ -1,0 +1,8 @@
+event_key;event_class
+
+PRE_CREATE_POINTER;com.katappult.cloud.platform.generated.model.event.PreCreatePointer
+PRE_DELETE_POINTER;com.katappult.cloud.platform.generated.model.event.PreDeletePointer
+PRE_UPDATE_POINTER;com.katappult.cloud.platform.generated.model.event.PreUpdatePointer
+POST_CREATE_POINTER;com.katappult.cloud.platform.generated.model.event.PostCreatePointer
+POST_DELETE_POINTER;com.katappult.cloud.platform.generated.model.event.PostDeletePointer
+POST_UPDATE_POINTER;com.katappult.cloud.platform.generated.model.event.PostUpdatePointer

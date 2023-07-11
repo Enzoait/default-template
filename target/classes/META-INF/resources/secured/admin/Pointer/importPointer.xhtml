@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">#{userSessionMap.applicationFriendlyName} - Import #{pointerController.entityName}</ui:define>
+
+    <ui:define name="content">
+
+        <div class="col-12">
+            <p:growl id="messages" showDetail="true"/>
+
+            <div class="mb-2">
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Zero" outcome="/home.xhtml"/>
+                        <p:menuitem value="Pointeur" outcome="/secured/admin/Pointer/pointerList.xhtml"/>
+                        <p:menuitem value="Import Pointeur"/>
+                    </p:breadCrumb>
+                </h:form>
+            </div>
+
+            <div class="card">
+                <h:form id="upload_form">
+                    <p:messages id="msg" showDetail="true" showIcon="true" skipDetailIfEqualsSummary="true"/>
+                    <p:fileUpload mode="advanced"
+                                  multiple="false"
+                                  sizeLimit="102400" allowTypes="/(\.|\/)(csv|txt)$/"
+                                  invalidSizeMessage="Maximum file size allowed is 100 KB"
+                                  invalidFileMessage="only csv,txt is allowed"
+                                  update="messages upload_form"
+                                  listener="#{pointerController.handleFileUpload}"/>
+
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

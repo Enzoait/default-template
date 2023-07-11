@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Mon profile - #{userSessionMap.applicationFriendlyName}</ui:define>
+
+    <ui:define name="head"></ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+
+            <div class="card">
+                <h5>Mon profile</h5>
+                <p:tabView dynamic="true" cache="true">
+                    <p:tab title="Mon compte">
+
+                        <h:panelGrid columns="2" cellpadding="7" rendered="#{userSessionMap.currentUserSessionDatas.isPersonalAccount}">
+                            <h:outputLabel for="name" value="Nom"/>
+                            <p:inputText id="name" value="#{userSessionMap.currentUserSessionDatas.userFirstName}" disabled="true"/>
+
+                            <h:outputLabel for="prenom" value="Prénom"/>
+                            <p:inputText id="prenom" value="#{userSessionMap.currentUserSessionDatas.userLastName}" disabled="true"/>
+
+                            <h:outputLabel for="email" value="Email"/>
+                            <p:inputText id="email" value="#{userSessionMap.currentUserSessionDatas.userAccount.login}" disabled="true"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid  columns="2" cellpadding="7" rendered="#{userSessionMap.currentUserSessionDatas.isOrganisationalAccount}">
+                            <h:outputLabel for="organisation" value="Organisation"/>
+                            <p:inputText id="organisation" value="#{userSessionMap.currentUserSessionDatas.userFirstName}" disabled="true"/>
+
+                            <h:outputLabel for="siren" value="Siren"/>
+                            <p:inputText id="siren"  disabled="true"/>
+
+                            <h:outputLabel for="siret" value="Siret"/>
+                            <p:inputText id="siret"  disabled="true"/>
+
+                            <h:outputLabel for="email1" value="Email"/>
+                            <p:inputText id="email1" value="#{userSessionMap.currentUserSessionDatas.userAccount.login}" disabled="true"/>
+                        </h:panelGrid>
+
+                    </p:tab>
+
+                    <p:tab title="Mot de passe">
+                        <ui:include src="../../admin/users/changePassword.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="Préférences">
+                        <ui:include src="../preferences/preferences.xhtml"/>
+                    </p:tab>
+                </p:tabView>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

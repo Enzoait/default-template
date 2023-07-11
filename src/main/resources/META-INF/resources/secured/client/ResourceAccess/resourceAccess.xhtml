@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template.xhtml">
+
+<ui:define name="title">Ressource - #{userSessionMap.applicationFriendlyName}</ui:define>
+<ui:define name="content">
+<div class="mb-2">
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Zero"/>
+                        <p:menuitem value="Ressource"/>
+                    </p:breadCrumb>
+                </h:form>
+            </div>
+<div class="k-layout-each-section">
+    <h:form id="ResourceAccess_form">
+        <div class="col-12 k-cards-root-container">
+            <p:growl id="ResourceAccess_growl_list_364" showDetail="true" />
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <div class="ui-inputgroup">
+                            <p:commandButton value="Filtrer"/>
+                            <p:inputText placeholder="Chercher un &#233;l&#233;ment..." value="#{resourceAccessController.searchTerm}">
+                                <p:ajax event="keyup" listener="#{resourceAccessController.onSearchInputFilterChange}"
+                                        update=":ResourceAccess_form:ResourceAccess_listDataModel_364" />
+                            </p:inputText>
+                        </div>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup>
+                        <h:form>
+                            <a href="/secured/client/ResourceAccess/addResourceAccess.xhtml?faces-redirect=true" class="pl-2 pr-2 mr-2 ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-button-info">
+                                <i class="pi pi-plus"></i>
+                            </a>
+                            <p:menuButton value="Options"  styleClass="ui-button ui-button-success">
+                                <p:menuitem icon="pi pi-plus" value="Ajouter" outcome="/secured/client/ResourceAccess/addResourceAccess.xhtml?faces-redirect=true"/>
+                                <p:menuitem icon="pi pi-refresh" value="Recharger" action="#{resourceAccessController._doRefreshListAction}"
+                                            ajax="true" immediate="true"/>
+                                <p:menuitem icon="pi pi-cloud-upload" value="Importer" outcome="/secured/client/ResourceAccess/importResourceAccess.xhtml"/>
+                            </p:menuButton>
+                        </h:form>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataView var="element" value="#{resourceAccessController.listDataModel}" class="mt-2"
+                             paginator="true" paginatorPosition="bottom" rows="12" id="ResourceAccess_listDataModel_364"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} element(s)"
+                             layout="grid" gridRowStyleClass="lg:col-6 xl:col-3" flex="true">
+
+                    <p:dataViewGridItem>
+                        <div class="k-product-card card">
+                            <div class="k-product-img">
+
+                            </div>
+                            <div class="product-grid-item">
+                                <div class="product-grid-item-content">
+                                    <div class="product-name">Title</div>
+                                    <div class="product-description">Description</div>
+                                </div>
+                                <div class="product-grid-item-bottom">
+                                    <p:linkButton type="button" styleClass="mr-1"
+                                                  outcome="/secured/client/ResourceAccess/resourceAccessDetails.xhtml?id=#{element.oid}"
+                                                  value="Infos"
+                                                  icon="pi pi-info"/>
+                                    <p:commandButton icon="pi pi-trash" styleClass="ui-button-outlined"
+                                                     ajax="true" immediate="true"
+                                                     update=":ResourceAccess_form:ResourceAccess_listDataModel_364 :ResourceAccess_form:ResourceAccess_growl_list_364 @this"
+                                                     action="#{resourceAccessController._doDeleteElement(element.oid)}">
+                                    </p:commandButton>
+                                </div>
+                            </div>
+                        </div>
+                    </p:dataViewGridItem>
+
+                </p:dataView>
+        </div>
+    </h:form></div></ui:define>
+</ui:composition>

@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Prototype - Ajout utilisateur</ui:define>
+
+    <ui:define name="content">
+
+        <div class="col-12">
+            <h:form>
+                <p:breadCrumb class="background_options">
+                        <p:menuitem value="Zero" outcome="/home.xhtml"/>
+                        <p:menuitem value="Administration" outcome="/secured/admin/admin.xhtml" class="page_title"/>
+                        <p:menuitem value="Users" class="page_title"/>
+                        <p:menuitem value="Nouveau" class="page_title"/>
+                    </p:breadCrumb>
+            </h:form>
+
+            <div class="background_options_add">
+
+                <h:form id="register_form">
+
+                    <p:growl id="growl" showDetail="false" />
+                    <p:messages id="messages" showDetail="true" closable="true" escape="false">
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <h:panelGrid columns="3" cellpadding="7" styleClass="mb-3" id="registerAccountTypePanel">
+                        <p:outputLabel for="accountType" value="User type:"/>
+                        <p:selectOneMenu id="accountType" value="#{registerController.accountSubtype}"  converter="#{typeFacesConverter}">
+                            <p:ajax listener="#{registerController.onAccountTypeChange}" update="register_form @this"/>
+                            <f:selectItems value="#{registerController.accountSubtypes}"  var="type" itemLabel="#{type.displayName}"/>
+                        </p:selectOneMenu>
+                        <p:message for="accountType" display="icon"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3" cellpadding="7" styleClass="mb-3"
+                                 id="registerPersonalPanel"
+                                 rendered="#{registerController.selectedAccountTypeIsAnOrganisation eq false}">
+
+                        <p:outputLabel for="firstname" value="Firtsname" class="add_label"/>
+                        <p:inputText id="firstname" placeholder="Firtsname" value="#{registerController.firstname}" required="true" class="champ"/>
+                        <p:message for="firstname" display="icon"/>
+
+                        <p:outputLabel for="lastname" value="Lastname:" class="add_label"/>
+                        <p:inputText id="lastname" placeholder="Lastname" value="#{registerController.lastname}" required="true" class="champ"/>
+                        <p:message for="lastname" display="icon"/>
+
+                        <p:outputLabel for="email1" value="Email:" class="add_label"/>
+                        <p:inputText id="email1" placeholder="Email" value="#{registerController.email}" required="true" class="champ"/>
+                        <p:message for="email1" display="icon"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3" cellpadding="7" styleClass="mb-3"
+                                 id="registerOrganisationalPanel"
+                                 rendered="#{registerController.selectedAccountTypeIsAnOrganisation eq true}">
+                        <p:outputLabel for="organisationName" value="Organisation:" class="add_label"/>
+                        <p:inputText id="organisationName" placeholder="Organisation" value="#{registerController.organisationName}" required="true" class="champ"/>
+                        <p:message for="organisationName" display="icon"/>
+
+                        <p:outputLabel for="email" value="Email:" class="add_label"/>
+                        <p:inputText id="email" placeholder="Email" value="#{registerController.email}" required="true" class="champ"/>
+                        <p:message for="email" display="icon"/>
+                    </h:panelGrid>
+
+                    <p:commandButton value="Créer" style="width: 5rem"
+                                     class="add_btn_background"
+                                     process="register_form registerPersonalPanel registerOrganisationalPanel @this"
+                                     update="register_form messages growl @this"
+                                     action="#{registerController._doCreateNewMemberAction}"/>
+                </h:form>
+
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>

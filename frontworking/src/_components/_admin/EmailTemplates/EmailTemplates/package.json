@@ -1,0 +1,6 @@
+{
+  "name": "EmailTemplates",
+  "version": "0.0.0",
+  "private": true,
+  "main": "EmailTemplates.js"
+}

@@ -1,0 +1,4 @@
+businessrule_identifier;br_order;isactive;isvetoable;description;event_name;business_class;br_rule;transac_phase;container_oid;business_type
+
+PointerSetLifecycle;2;1;1;Description of rule;PRE_CREATE_POINTER;com.katappult.cloud.platform.generated.model.Pointer;LifecycleManagedSystemRules;NULL;1;
+PointerSetType;1;1;1;Description of rule;PRE_CREATE_POINTER;com.katappult.cloud.platform.generated.model.Pointer;TypeManagedSetBusinessTypeRule;NULL;1;

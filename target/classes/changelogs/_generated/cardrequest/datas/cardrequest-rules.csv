@@ -1,0 +1,4 @@
+businessrule_identifier;br_order;isactive;isvetoable;description;event_name;business_class;br_rule;transac_phase;container_oid;business_type
+
+CardRequestSetLifecycle;2;1;1;Description of rule;PRE_CREATE_CARDREQUEST;com.katappult.cloud.platform.generated.model.CardRequest;LifecycleManagedSystemRules;NULL;1;
+CardRequestSetType;1;1;1;Description of rule;PRE_CREATE_CARDREQUEST;com.katappult.cloud.platform.generated.model.CardRequest;TypeManagedSetBusinessTypeRule;NULL;1;

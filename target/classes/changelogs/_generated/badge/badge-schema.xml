@@ -1,0 +1,51 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+   <changeSet id="1" author="Badge-schema-seq">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions>
+             <not>
+                 <sequenceExists sequenceName="gen_badge_oid_seq"/>
+             </not>
+          </preConditions>
+          <createSequence sequenceName="gen_badge_oid_seq" incrementBy="1" startValue="1"/>
+    </changeSet>
+
+	<changeSet id="1" author="Badge-schema">
+        <validCheckSum>ANY</validCheckSum>
+        <createTable tableName="gen_badge">
+            <column name="OID" type="integer" defaultValueComputed="nextval('gen_badge_oid_seq')">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+
+            <column name="CREATE_DATE" type="TIMESTAMP"  defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+            <column name="CREATED_BY" type="varchar(255)" defaultValue="system">
+                <constraints nullable="false" />
+            </column>
+            <column name="LAST_MODIFIED_BY" type="varchar(255)" defaultValue="system">
+                <constraints nullable="false" />
+            </column>
+            <column name="MODIFIED_DATE" type="TIMESTAMP"  defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+            <column name="VERSION" type="BIGINT" defaultValue="1">
+                <constraints nullable="false" />
+            </column>
+            <column name="container_oid" type="BIGINT" defaultValue="1">
+                <constraints nullable="false" />
+            </column>
+
+                   <column name="isactive" type="INTEGER"/>
+          <column name="expirationdate" type="TIMESTAMP"/>
+        <column name="identification" type="VARCHAR(255)"/>
+<!--COLUMNS-->
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
+

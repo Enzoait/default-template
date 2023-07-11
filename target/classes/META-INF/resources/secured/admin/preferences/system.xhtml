@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Administration - Préférences système</ui:define>
+
+    <ui:define name="content">
+        <div class="col-12">
+
+
+            <h:form>
+                <p:breadCrumb class="background_options">
+                        <p:menuitem value="Zero" outcome="/home.xhtml"/>
+                        <p:menuitem value="Administration" outcome="/secured/admin/admin.xhtml" class="page_title"/>
+                        <p:menuitem value="System Preferences" class="page_title"/>
+                    </p:breadCrumb>
+            </h:form>
+
+            <div class="background_options_add">
+				<div class="dossier">
+                <h:form>
+                        <table cellpadding="7">
+                                <ui:repeat value="#{userSessionMap.systemPreferences}" var="preference">
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel>#{preference.displayedName}</p:outputLabel>
+                                        </td>
+                                        <td>
+                                            <p:inputText name="#{preference.key}" value="#{preference.value}" type="text" class="champ">
+                                                <p:ajax event="blur" listener="#{userSessionMap.handleUserPreferenceChange}"/>
+                                            </p:inputText>
+                                        </td>
+                                    </tr>
+                                </ui:repeat>
+                        </table>
+                </h:form>
+				</div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

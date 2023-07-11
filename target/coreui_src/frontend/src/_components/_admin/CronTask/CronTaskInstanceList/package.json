@@ -1,0 +1,6 @@
+{
+  "name": "CronTaskInstanceList",
+  "version": "0.0.0",
+  "private": true,
+  "main": "CronTaskInstanceList.js"
+}

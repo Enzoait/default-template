@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template.xhtml">
+
+<ui:define name="title">Requête - #{userSessionMap.applicationFriendlyName}</ui:define>
+<ui:define name="content">
+<div class="mb-2">
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Zero"/>
+                        <p:menuitem value="Requête"/>
+                    </p:breadCrumb>
+                </h:form>
+            </div>
+<div class="k-layout-each-section">
+
+            <div class="card">
+                <h:form id="create_form">
+                    <p:messages id="messages" showDetail="false" closable="true" escape="false">
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <h:panelGrid rendered="#{cardRequestController.isTypeOrLifecycleManaged}"
+                                 columns="3" cellpadding="7"  style="width:600px"
+                                 columnClasses="table-col" styleClass="mb-3">
+                        <h:outputLabel for="selectedLegacyType" value="Type"  required="true"/>
+                        <p:selectOneMenu  id="selectedLegacyType" value="#{cardRequestController.selectedLegacyType}"
+                                          style="min-width: 15rem" panelStyle="width: 20rem" scrollHeight="250"
+                                          converter="#{typeFacesConverter}"  required="true">
+                            <f:selectItems value="#{cardRequestController.selectableLegacyType}"  var="type" itemLabel="#{type.displayName}"/>
+                            <f:facet name="footer">
+                                <p:divider styleClass="mt-0" />
+                                <h:outputText value="Select a type" style="font-weight:bold;"/>
+                            </f:facet>
+                        </p:selectOneMenu>
+                        <p:message for="selectedLegacyType" display="icon"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3" cellpadding="7" styleClass="mb-3" id="createPanel"
+                                 columnClasses="table-col" style="width:600px">
+
+                        <h:outputLabel for="description" value="Description"/>
+<p:inputTextarea id="description" rows="5" cols="30" value="#{cardRequestController.newElement.description}" counterTemplate="{0} characters remaining." required="true"/>
+<p:message for="description" display="icon"/>
+<h:outputLabel for="requestExpirationDate" value="Expiration date"/>
+<p:datePicker id="requestExpirationDate" value="#{cardRequestController.newElement.requestExpirationDate}" required="true"/>
+<p:message for="requestExpirationDate" display="icon"/>
+<!--COLUMNS-->
+
+                    </h:panelGrid>
+
+                    <p:commandButton value="Cr&#233;er" style="width: 5rem"
+                                     styleClass="mt-4"
+                                     immediate="false" ajax="false"
+                                     process="create_form @this"
+                                     update="create_form messages createPanel growl @this"
+                                     action="#{cardRequestController._doCreateNewElementAction}"/>
+                </h:form>
+            </div>
+</div></ui:define>
+</ui:composition>

@@ -1,0 +1,180 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Prototype - Utilisateur details</ui:define>
+
+    <ui:define name="content">
+        <p:growl id="growl" showDetail="true" />
+
+        <h:form>
+            <p:breadCrumb class="background_options">
+                    <p:menuitem value="Administration" class="page_title"/>
+                    <p:menuitem value="Users" outcome="/secured/admin/users/usersList" class="page_title"/>
+                    <p:menuitem value="Details" class="page_title"/>
+                </p:breadCrumb>
+        </h:form>
+
+        <div style="display: flex;width: 100%" class="mt-3">
+            <p:card style="width:30rem">
+                <f:facet name="header">
+                    <img alt="user header" src="/images/usercard.png"/>
+                </f:facet>
+                <f:facet name="title">
+                    <h:outputText value="#{usersManagementController.selectedElementForDetails.ownerSummary}"/>
+                </f:facet>
+                <f:facet name="subtitle">
+                    <c:if test="#{usersManagementController.isOrganisationAccountType}">
+                        <h:outputText value="#{usersManagementController.selectedElementForDetails.login}"/>
+                        <br/><br/>
+                        <h:outputText value="Organisation"/>
+                    </c:if>
+                    <c:if test="#{!usersManagementController.isOrganisationAccountType}">
+                        <h:outputText value="#{usersManagementController.selectedElementForDetails.login}"/>
+                        <br/><br/>
+                        <h:outputText value="Compte personnel"/>
+                    </c:if>
+                </f:facet>
+            </p:card>
+
+            <div style="width:100%;margin-left: 22px">
+                <h:form id="user_details_actions">
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <p:commandButton value="Refresh" styleClass="mr-2 ui-button-outlined" icon="pi pi-fw pi-refresh"
+                                             update="@this growl user_details_panel user_details_actions"
+                                             immediate="true" ajax="true"
+                                             action="#{usersManagementController._doRefreshAction}"/>
+                            <c:if test="#{!usersManagementController.selectedElementForDetails.locked}">
+                                <p:commandButton value="Bloquer" styleClass="mr-2 ui-button-outlined"
+                                                 update="@this growl user_details_panel user_details_actions"
+                                                 immediate="true" ajax="true"
+                                                 action="#{usersManagementController._doBlockUserAction}"/>
+                            </c:if>
+                            <c:if test="#{usersManagementController.selectedElementForDetails.locked}">
+                                <p:commandButton value="Débloquer" styleClass="mr-2 ui-button-outlined"
+                                                 update="@this growl user_details_panel user_details_actions"
+                                                 immediate="true"  ajax="true"
+                                                 action="#{usersManagementController._doUnBlockUserAction}"/>
+                            </c:if>
+                            <c:if test="#{!usersManagementController.selectedElementForDetails.active}">
+                                <p:commandButton value="Renvoyer le lien d'activation du compte"
+                                                 ajax="true" immediate="true"
+                                                 action="#{usersManagementController._doResendActiveAccountEmailAction}"
+                                                 update="@this growl user_details_panel user_details_actions"
+                                                 styleClass="mr-2 ui-button-outlined" />
+                            </c:if>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                </h:form>
+
+                <p:card styleClass="mt-2">
+                    <p:tabView dynamic="true" cache="true" id="user_details_panel">
+
+                        <p:tab title="Utilisateur">
+                            <c:if test="#{!usersManagementController.isOrganisationAccountType}">
+                                <h:panelGrid columns="2" cellpadding="7">
+                                    <h:outputLabel for="email" value="Genre"/>
+                                    <p:inputText id="email" value="#{usersManagementController.selectedElementOwner.gender}" disabled="true"/>
+
+                                    <h:outputLabel for="name" value="Nom"/>
+                                    <p:inputText id="name" value="#{usersManagementController.selectedElementOwner.lastName}" disabled="true"/>
+
+                                    <h:outputLabel for="prenom" value="Prénom"/>
+                                    <p:inputText id="prenom" value="#{usersManagementController.selectedElementOwner.firstName}" disabled="true"/>
+
+                                    <h:outputLabel for="middleName" value="middleName"/>
+                                    <p:inputText id="middleName" value="#{usersManagementController.selectedElementOwner.middleName}" disabled="true"/>
+
+                                    <h:outputLabel for="birthDate" value="birthDate"/>
+                                    <p:inputText id="birthDate" value="#{usersManagementController.selectedElementOwner.birthDate}" disabled="true"/>
+
+                                    <h:outputLabel for="birthPlace" value="birthPlace"/>
+                                    <p:inputText id="birthPlace" value="#{usersManagementController.selectedElementOwner.birthPlace}" disabled="true"/>
+                                </h:panelGrid>
+                            </c:if>
+
+                            <c:if test="#{usersManagementController.isOrganisationAccountType}">
+                                <h:panelGrid columns="2" cellpadding="7">
+                                    <h:outputLabel for="Siren" value="Siren"/>
+                                    <p:inputText id="Siren" value="#{usersManagementController.selectedElementOwner.siren}" disabled="true"/>
+
+                                    <h:outputLabel for="siret" value="siret"/>
+                                    <p:inputText id="siret" value="#{usersManagementController.selectedElementOwner.siret}" disabled="true"/>
+
+                                    <h:outputLabel for="codeNaf" value="codeNaf"/>
+                                    <p:inputText id="codeNaf" value="#{usersManagementController.selectedElementOwner.codeNaf}" disabled="true"/>
+
+                                    <h:outputLabel for="codeApe" value="codeApe"/>
+                                    <p:inputText id="codeApe" value="#{usersManagementController.selectedElementOwner.codeApe}" disabled="true"/>
+
+                                    <h:outputLabel for="tvaIntra" value="tvaIntra"/>
+                                    <p:inputText id="tvaIntra" value="#{usersManagementController.selectedElementOwner.tvaIntra}" disabled="true"/>
+
+                                    <h:outputLabel for="immatriculationDate" value="immatriculationDate"/>
+                                    <p:inputText id="immatriculationDate" value="#{usersManagementController.selectedElementOwner.immatriculationDate}" disabled="true"/>
+
+                                    <h:outputLabel for="categorie" value="categorie"/>
+                                    <p:inputText id="categorie" value="#{usersManagementController.selectedElementOwner.categorie}" disabled="true"/>
+                                </h:panelGrid>
+                            </c:if>
+                        </p:tab>
+
+                        <p:tab title="Compte">
+
+                            <h:panelGrid columns="2" cellpadding="7">
+                                <h:outputLabel for="login" value="Login"/>
+                                <p:inputText id="login" value="#{usersManagementController.selectedElementForDetails.login}" disabled="true"/>
+
+                                <h:outputLabel for="lastConnectionDate" value="Dernière connexion"/>
+                                <p:inputText id="lastConnectionDate" value="#{usersManagementController.selectedElementForDetails.lastConnectionDate}" disabled="true"/>
+
+                                <h:outputLabel for="active" value="Active"/>
+                                <p:inputText id="active" value="#{usersManagementController.selectedElementForDetails.active}" disabled="true"/>
+
+                                <h:outputLabel for="passwordExpirationDate" value="Password expiration"/>
+                                <p:inputText id="passwordExpirationDate" value="#{usersManagementController.selectedElementForDetails.passwordExpirationDate}" disabled="true"/>
+
+                                <h:outputLabel for="lockedDate" value="LockedDate"/>
+                                <p:inputText id="lockedDate" value="#{usersManagementController.selectedElementForDetails.lockedDate}" disabled="true"/>
+
+                                <h:outputLabel for="locked" value="Locked"/>
+                                <p:inputText id="locked" value="#{usersManagementController.selectedElementForDetails.locked}" disabled="true"/>
+
+                                <h:outputLabel for="tries" value="Tries"/>
+                                <p:inputText id="tries" value="#{usersManagementController.selectedElementForDetails.tries}" disabled="true"/>
+                            </h:panelGrid>
+
+                        </p:tab>
+
+                        <p:tab title="Roles">
+                            <ui:include src="userRoles.xhtml"/>
+                        </p:tab>
+
+                        <p:tab title="Profils">
+                            <ui:include src="userProfiles.xhtml"/>
+                        </p:tab>
+
+                        <c:if test="#{usersManagementController.isOrganisationAccountType}">
+                            <p:tab title="Membres">
+                                <ui:include src="membersOfOrganisation.xhtml"/>
+                            </p:tab>
+                        </c:if>
+
+                        <c:if test="#{!usersManagementController.isOrganisationAccountType}">
+                            <p:tab title="Organisations">
+                                <ui:include src="organisationsOfUser.xhtml"></ui:include>
+                            </p:tab>
+                        </c:if>
+                    </p:tabView>
+                </p:card>
+
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

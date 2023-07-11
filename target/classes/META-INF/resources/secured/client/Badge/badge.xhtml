@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template.xhtml">
+
+<ui:define name="title">Badge - #{userSessionMap.applicationFriendlyName}</ui:define>
+<ui:define name="content">
+<div class="mb-2">
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Zero"/>
+                        <p:menuitem value="Badge"/>
+                    </p:breadCrumb>
+                </h:form>
+            </div>
+<div class="k-layout-each-section">
+    <h:form id="Badge_form">
+        <div class="col-12">
+            <p:growl id="Badge_growl_list_393" showDetail="true" />
+
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <div class="ui-inputgroup">
+                            <p:commandButton value="Filtrer"/>
+                            <p:inputText placeholder="Chercher un &#233;l&#233;ment..." value="#{badgeController.searchTerm}">
+                                <p:ajax event="keyup" listener="#{badgeController.onSearchInputFilterChange}"
+                                        update=":Badge_form:Badge_listDataModel_393" />
+                            </p:inputText>
+                        </div>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup>
+                        <h:form>
+                            <a href="/secured/client/Badge/addBadge.xhtml?faces-redirect=true" class="pl-2 pr-2 mr-2 ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-button-info">
+                                <i class="pi pi-plus"></i>
+                            </a>
+                            <p:menuButton value="Options"  styleClass="ui-button ui-button-success">
+                                <p:menuitem icon="pi pi-plus" value="Ajouter" outcome="/secured/client/Badge/addBadge.xhtml?faces-redirect=true"/>
+                                <p:menuitem icon="pi pi-refresh" value="Recharger" action="#{badgeController._doRefreshListAction}"
+                                            ajax="true" immediate="true"/>
+                                <p:menuitem icon="pi pi-cloud-upload" value="Importer" outcome="/secured/client/Badge/importBadge.xhtml"/>
+                            </p:menuButton>
+                        </h:form>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable var="element" value="#{badgeController.listDataModel}" stripedRows="true" class="mt-2"
+                             paginator="true" paginatorPosition="bottom" rows="10" id="Badge_listDataModel_393"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} &#233;l&#233;ment(s)">
+
+                    <p:column headerText="ID" width="5%">
+                        <a href="/secured/client/Badge/badgeDetails.xhtml?id=#{element.oid}" >#<h:outputText value="#{element.oid}" /></a>
+                    </p:column>
+
+                    <p:column headerText="Identification">
+    <h:outputText value="#{element.identification}" />
+</p:column>
+<p:column headerText="Expiration date">
+                        <p:datePicker value="#{element.expirationDate}" disabled="true"/>
+                    </p:column>
+<p:column headerText="Active">
+                        <p:selectBooleanCheckbox value="#{element.isActive}" disabled="true"/>
+                    </p:column>
+<!--COLUMNS-->
+
+                    <p:column headerText="Status" rendered="#{badgeController.isTypeOrLifecycleManaged}">
+                        <p:tag styleClass="mr-2 p-2" severity="warning" value="#{element.lifecycleInfo.currentState}"></p:tag>
+                    </p:column>
+
+                    <p:column styleClass="float-right text-right mr-3">
+                        <h:form>
+                            <p:linkButton icon="pi pi-info" styleClass="ui-button-outlined" outcome="/secured/client/Badge/badgeDetails?id=#{element.oid}"/>
+                            <p:commandButton icon="pi pi-trash" styleClass="ui-button-outlined ml-1"
+                                             update=":Badge_form:Badge_listDataModel_393 :Badge_form:Badge_growl_list_393 @this"
+                                             ajax="true" immediate="true"
+                                             action="#{badgeController._doDeleteElement(element.oid)}">
+                            </p:commandButton>
+                        </h:form>
+                    </p:column>
+
+                </p:dataTable>
+
+        </div>
+    </h:form></div></ui:define>
+</ui:composition>

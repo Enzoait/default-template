@@ -1,0 +1,6 @@
+{
+  "name": "LifecycleManagedActions",
+  "version": "0.0.0",
+  "private": true,
+  "main": "LifecycleManagedActions.js"
+}

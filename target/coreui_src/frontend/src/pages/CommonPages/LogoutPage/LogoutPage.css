@@ -1,0 +1,33 @@
+.login-container {
+    background: #ebebeb;
+    padding: 22px 12px 22px 12px;
+}
+
+.login p {
+    padding: 12px;
+}
+
+.ep-login-title{
+	margin-top:100px;
+	text-align:center;
+	color:#5C6BC0;
+	font-size:2em;
+	font-family: 'Helvetica';
+	font-weight:thin;
+}
+
+
+.login-footer-link{
+    margin-top: 22px;
+}
+
+.img-logo-lg {
+	
+}
+
+.katappult-login{
+	position: relative;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  padding: 10px;
+  background: white;
+}

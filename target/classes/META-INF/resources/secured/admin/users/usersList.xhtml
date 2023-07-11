@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Prototype - Utilisateurs</ui:define>
+
+    <ui:define name="content">
+
+        <div class="col-12">
+            <p:growl id="messages" showDetail="true" />
+
+            <h:form>
+                <p:breadCrumb class="background_options">
+                        <p:menuitem value="Zero" outcome="/home.xhtml"/>
+                        <p:menuitem value="Administration" outcome="/secured/admin/admin.xhtml" class="page_title"/>
+                        <p:menuitem value="Users" class="page_title"/>
+                    </p:breadCrumb>
+            </h:form>
+
+            <div>
+
+                <p:toolbar >
+                    <p:toolbarGroup>
+                        <div class="ui-inputgroup">
+                            
+                            <p:inputText placeholder="Login ou nom" value="#{usersManagementController.searchTerm}" class="search_input_search">
+                                <p:ajax event="keyup" listener="#{usersManagementController.onSearchInputFilterChange}" update="listDataModel" />
+                            </p:inputText>
+                        </div>
+
+                        <p:selectOneMenu  id="userType" value="#{usersManagementController.accountSubtypeToSearch}" converter="#{typeFacesConverter}" styleClass="ml-3">
+                            <f:selectItem itemLabel="All users" itemValue=""/>
+                            <f:selectItems value="#{usersManagementController.searchableAccountSubtypes}" var="type" itemLabel="#{type.displayName}" itemValue="#{type}"/>
+                            <p:ajax listener="#{usersManagementController._onAccountSubtypeToSearchChange}" update="listDataModel"/>
+                        </p:selectOneMenu >
+                    </p:toolbarGroup>
+                    <p:toolbarGroup>
+                        <h:form>
+							<p:commandButton value="Filtrer" />
+                            <p:commandButton action="/secured/admin/users/addUser.xhtml?faces-redirect=true" value="Ajouter" icon="pi pi-plus" styleClass="mr-3 ui-button-info"/>
+                            <p:menuButton value="Options"  styleClass="ui-button-info">
+                                <p:menuitem icon="pi pi-refresh" value="Recharger" action="#{usersManagementController._doRefreshAction}" update="listDataModel"/>
+                                <p:menuitem icon="pi pi-cloud-upload" value="Importer" outcome="/secured/admin/users/importUsers.xhtml"/>
+                            </p:menuButton>
+                        </h:form>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable var="user" value="#{usersManagementController.listDataModel}" stripedRows="true"
+                             paginator="true" paginatorPosition="bottom" rows="10" id="listDataModel" class="table"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} élément(s)">
+
+                    <p:column width="3%">
+                        <p:badge value="0" visible="false">
+                            <i class="pi pi-user" style="font-size: 1rem"/>
+                        </p:badge>
+                    </p:column>
+
+                    <p:column headerText="Nom" class="column">
+                        <a href="/secured/admin/users/userDetails.xhtml?id=#{user.oid}" class="green_link"> <h:outputText value="#{user.ownerSummary}" /></a>
+                    </p:column>
+
+                    <p:column headerText="Email" class="column">
+                        <a href="/secured/admin/users/userDetails.xhtml?id=#{user.oid}" class="green_link"> <h:outputText value="#{user.login}" /></a>
+                    </p:column>
+
+                    <p:column headerText="Dernière connexion" class="column">
+                        <h:outputText value="#{user.lastConnectionDate}" />
+                    </p:column>
+
+                    <p:column headerText="Creation" class="column">
+                        <h:outputText value="#{user.lastConnectionDate}" />
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

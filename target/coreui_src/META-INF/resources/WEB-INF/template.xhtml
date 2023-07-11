@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="en">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <link rel="manifest" href="#{request.contextPath}/manifest.json"/>
+            <link rel="shortcut icon" type="image/png" sizes="200x200" href="#{request.contextPath}/images/favicon.png" />
+            <link rel="icon" type="image/png" sizes="200x200" href="#{request.contextPath}/images/favicon.png" />
+            <link href="/css/custom.css?v=#{userSessionMap.applicationVersion}" rel="stylesheet"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        </f:facet>
+
+        <title><ui:insert name="title">#{userSessionMap.applicationFriendlyName}</ui:insert></title>
+        <h:outputScript name="js/layout.js" library="siberia-layout" />
+        <h:outputScript name="js/prism.js" library="siberia-layout"/>
+        <ui:insert name="head"/>
+    </h:head>
+
+    <h:body>
+        <div class="layout-wrapper layout-horizontal layout-yana">
+         
+            <ui:include src="./topbar.xhtml"/>
+            <ui:include src="./rightpanel.xhtml"/>
+
+            <div class="layout-main">     
+                <div class="layout-content">
+                    <ui:insert name="content"/>
+                </div>
+
+                <ui:include src="./footer.xhtml"/>
+                <div class="layout-mask"></div>
+            </div>
+         
+            <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+                <f:facet name="start">
+                    <i class="pi pi-spin pi-spinner layout-ajax-loader-icon" aria-hidden="true"/>
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value=""/>
+                </f:facet>
+            </p:ajaxStatus>
+        </div>
+
+        <h:outputStylesheet name="css/primeicons.css" library="siberia-layout"/>
+        <h:outputStylesheet name="css/primeflex.min.css" library="siberia-layout"/>
+        <h:outputStylesheet name="css/layout-yana.css" library="siberia-layout" />
+        <h:outputStylesheet name="css/override.css" library="siberia-layout"/>
+    </h:body>
+
+</html>

@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Prototype - Récupération mot de passe</ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="token" value="#{activateAccountController.token}"/>
+        </f:metadata>
+
+        <div class="col-12">
+
+                <div class="card">
+
+                    <p:panel header="Veuillez renseigner le nouveau mot de passe afin d'accéder à votre compte mon compte" styleClass="mt-3">
+                        <h:form id="main_form">
+                            <p:messages id="msgs2" showDetail="true"/>
+
+                            <h:panelGrid columns="3" cellpadding="7">
+                                <h:outputLabel for="newPass" value="Nouveau mot de passe"/>
+                                <p:password id="newPass" value="#{activateAccountController.password}" required="true"/>
+                                <p:message for="newPass" display="icon"/>
+
+                                <h:outputLabel for="validateNewPass" value="Valider le nouveau mot de passe"/>
+                                <p:password id="validateNewPass" value="#{activateAccountController.validatePassword}" required="true"/>
+                                <p:message for="validateNewPass" display="icon"/>
+
+                            </h:panelGrid>
+
+                            <p:divider/>
+                            <p:linkButton outcome="/login.xhtml" value="Login" styleClass="mr-4" icon="pi pi-fw pi-external-link"/>
+                            <p:commandLink  value="Activer mon compte" styleClass="ui-button-success border-1 p-2"
+                                             ajax="false" id="changePassButton"
+                                             process="@this main_form" update="msg2"
+                                             action="#{activateAccountController._doActivateMyAccount}">
+
+                            </p:commandLink>
+                        </h:form>
+                    </p:panel>
+                </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

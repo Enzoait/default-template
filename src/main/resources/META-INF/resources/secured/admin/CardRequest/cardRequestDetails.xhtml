@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">#{userSessionMap.applicationFriendlyName} - Details #{cardRequestController.entityName}</ui:define>
+
+    <ui:define name="content">
+        <div class="mb-2">
+            <h:form>
+                <p:breadCrumb>
+                    <p:menuitem value="Zero" outcome="/home.xhtml"/>
+                    <p:menuitem value="Administration" outcome="/secured/admin/admin.xhtml"/>
+                    <p:menuitem value="Requête" outcome="/secured/admin/CardRequest/cardRequestList.xhtml"/>
+                    <p:menuitem value="Details"/>
+                </p:breadCrumb>
+            </h:form>
+        </div>
+
+        <div class="card">
+            <div style="width:100%;">
+                <h:form id="element_details_actions">
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <p:commandButton value="Ajouter" styleClass="mr-2 ui-button-outlined" icon="pi pi-plus"
+                                             action="/secured/admin/CardRequest/addCardRequest.xhtml"/>
+
+                            <ui:repeat value="#{cardRequestController.elementMetadata.reachableStates}" var="state">
+                                <p:commandButton value="#{state}" styleClass="mr-2 ui-button-outlined"
+                                                 ajax="false" immediate="false"
+                                                 update="update_form messages"
+                                                 action="#{cardRequestController._doUpdateElementBySetState(state)}"
+                                />
+                            </ui:repeat>
+                        </p:toolbarGroup>
+
+                        <p:toolbarGroup align="right" rendered="#{cardRequestController.isTypeOrLifecycleManaged}">
+                            <p:tag styleClass="mr-2 p-2" severity="warning" value="#{cardRequestController.detailsElement.lifecycleInfo.currentState}"></p:tag>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                </h:form>
+
+                <p:messages id="messages" showDetail="true" closable="true" escape="false"/>
+
+                <p:tabView dynamic="true" cache="true" styleClass="mt-2" id="details_panel">
+
+                    <p:tab title="Infos">
+
+                        <p:panel header="Details" styleClass="mb-3">
+                            <h:form id="update_form">
+                                <h:panelGrid columns="2" cellpadding="7">
+                                    <h:outputLabel for="oid" value="ID"/>
+                                    <p:inputText id="oid" value="#{cardRequestController.detailsElement.oid}" disabled="true"/>
+
+                                     <h:outputLabel for="description" value="Description"/>
+ <p:inputTextarea rows="5" cols="30" value="#{cardRequestController.detailsElement.description}" counterTemplate="{0} characters remaining." maxlength="255" required="true"/>
+<h:outputLabel for="requestExpirationDate" value="Expiration date"/>
+<p:datePicker id="requestExpirationDate" value="#{cardRequestController.detailsElement.requestExpirationDate}" required="true"/>
+<!--COLUMNS-->
+                                </h:panelGrid>
+
+                                <p:toolbar styleClass="mt-4">
+                                    <p:toolbarGroup>
+                                        <p:commandButton value="Enregistrer" icon="pi pi-save"
+                                                         ajax="false" immediate="false"
+                                                         update="update_form messages @this" process="update_form @this"
+                                                         action="#{cardRequestController._doUpdateElement}"
+                                                         styleClass="ui-button-info"/>
+                                    </p:toolbarGroup>
+                                </p:toolbar>
+                            </h:form>
+                        </p:panel>
+                    </p:tab>
+
+                    <ui:include src="../../../lifecycle/lifecycleHistory.xhtml">
+                        <ui:param name="lifecycleHistories"
+                                  value="#{cardRequestController.elementMetadata.lifecycleHistories}" />
+                        <ui:param name="isTypeOrLifecycleManaged" value="#{cardRequestController.isTypeOrLifecycleManaged}"/>
+                    </ui:include>
+
+                    <p:tab title="Metadonnées">
+                        <p:card styleClass="mt-2 mb-4">
+                            <ui:include src="../../../persistenceInfo/persistenceInfo.xhtml">
+                                <ui:param name="elementMetadata" value="#{cardRequestController.detailsElement}" />
+                            </ui:include>
+                        </p:card>
+                    </p:tab>
+
+                    <!--TAB-->
+                </p:tabView>
+            </div>
+        </div>
+
+        <!--END-->
+
+        <style type="text/css">
+            .katappult-metadata-chronoline .ui-card-title{
+                font-size: 1rem!important;
+            }
+        </style>
+    </ui:define>
+
+</ui:composition>

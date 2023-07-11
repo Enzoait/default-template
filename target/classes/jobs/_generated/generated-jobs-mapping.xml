@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jobMappingPathResolver>
+
+
+    <jobMappingPath job="standardBatchExport" type="manageBadge" mappingFilePath="classpath:/export/_generated/badge-export-mapping.xml"/>
+    <jobMappingPath job="standardBatchImport" type="manageBadge" mappingFilePath="classpath:/import/_generated/badge-import-mapping.xml"/>
+
+    <jobMappingPath job="standardBatchExport" type="managePointer" mappingFilePath="classpath:/export/_generated/pointer-export-mapping.xml"/>
+    <jobMappingPath job="standardBatchImport" type="managePointer" mappingFilePath="classpath:/import/_generated/pointer-import-mapping.xml"/>
+
+    <jobMappingPath job="standardBatchExport" type="manageCardRequest" mappingFilePath="classpath:/export/_generated/cardrequest-export-mapping.xml"/>
+    <jobMappingPath job="standardBatchImport" type="manageCardRequest" mappingFilePath="classpath:/import/_generated/cardrequest-import-mapping.xml"/>
+
+    <jobMappingPath job="standardBatchExport" type="manageResourceAccess" mappingFilePath="classpath:/export/_generated/resourceaccess-export-mapping.xml"/>
+    <jobMappingPath job="standardBatchImport" type="manageResourceAccess" mappingFilePath="classpath:/import/_generated/resourceaccess-import-mapping.xml"/>
+</jobMappingPathResolver>

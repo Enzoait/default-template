@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/login-template.xhtml">>
+
+    <ui:define name="content">
+
+        <h:form style="width: 100%">
+
+            <div class='k-root-layout'>
+                <section class='k-login-area'>
+                    <div class='k-login-inner'>
+                        <a href="/secured/home.xhtml" style="text-align: center">
+                            <img src='/images/KatappultLogo.svg' width="120px"/>
+                            <h4>WebApp live demo</h4>
+                        </a>
+
+                        <p:splitter layout="vertical">
+                            <p:splitterPanel>
+                                <div class='k-login-form-container'>
+                                    <h3>Login to your account</h3>
+
+                                    <p:inputText placeholder="Votre e-mail" value="#{loginController.username}"/>
+                                    <p:password placeholder="Votre mot de passe" value="#{loginController.password}"/>
+                                    <p:commandButton value="Login" class="button-primary login-button"
+                                                     process="login-panel @this"
+                                                     ajax="false" id="loginButton"
+                                                     icon="pi pi-arrow-right"
+                                                     action="#{loginController.login}">
+                                    </p:commandButton>
+
+                                    <a href="/lostpass.xhtml"
+                                       style="text-align:right;width:100%">Forgot your password?</a>
+
+                                    <div class='k-login-footer'>
+                                        <p>Dont have an account yet?</p>
+                                        <a href="/register.xhtml">Create an account</a>
+                                    </div>
+                                </div>
+                            </p:splitterPanel>
+                            <p:splitterPanel
+                                    styleClass="ml-3 flex align-items-center justify-content-center p-5 flex-column">
+
+                                <p:linkButton href="/oauth2/authorization/google?s=faces" value="Continue with Google"
+                                              icon="pi pi-google"
+                                              class="ui-button ui-button-social ui-button-gg mb-4">
+                                </p:linkButton>
+
+                                <p:linkButton href="/oauth2/authorization/apple?s=faces" value="Continue with Microsoft"
+                                              icon="pi pi-microsoft"
+                                              class="ui-button ui-button-social ui-button-app">
+                                </p:linkButton>
+                            </p:splitterPanel>
+                        </p:splitter>
+
+                        <p>www.katappult.cloud © 2023. All rights reserved.</p>
+                    </div>
+                </section>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

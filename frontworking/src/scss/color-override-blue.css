@@ -1,0 +1,59 @@
+body{
+	color:#333;
+	--input-color: #99A3BA;
+	--input-border: #CDD9ED;
+	--input-background: #fff;
+	--input-placeholder: #CBD1DC;
+	--input-border-focus: #275EFE;
+	margin: 0;
+	padding: 0;
+
+  --bg-color:#fff;
+  --admin-bg-color:#E1E1E1;
+
+  --admin-header-bg: #FFFFFF;
+  --admin-header-link-color:var(--k-primary-900);
+  --admin-header-link-bg-color-hover:var(--k-primary-200);
+  --admin-header-link-color-hover:#fff;
+
+  --admin-main-left-menu-bg-color: var(--k-primary-900)!important;
+  --admin-left-menu-active-color:var(--k-primary-900);
+  --admin-left-menu-active-bg-color:var(--k-tertiary-500);
+  --admin-left-menu-color: #FFFFFF;
+  --admin-left-menu-hover-bg-color: var(--k-tertiary-500);
+  --admin-left-menu-border-color:none;
+    --link-color: var(--k-primary-900) !important;
+}
+
+#demo-app .admin-header-links .active{border-color: var(--admin-header-link-color)}
+
+.admin-content-left-root .root-sidebar:last-child{background: var(--admin-bg-color)}
+
+.admin-header-main,.admin-header-main:after{background: var(--admin-header-bg)!important}
+.admin-header-links .header-menu-active{background: var(--admin-header-bg);border-color: var(--admin-header-link-color)}
+.admin-header-link{color:var(--admin-header-link-color)}
+.admin-header-link:hover{color:var(--admin-header-link-color-hover);background: var(--admin-header-link-bg-color-hover)}
+.admin-header-links-right .admin-header-link{
+
+}
+
+.admin-content-left-root .sidebar-content{
+    background:  var(--admin-main-left-menu-bg-color);
+    box-shadow: var(--k-bg-shadow-3)!important;
+    border-right: 1px solid var(--admin-left-menu-border-color)!important;
+}
+
+.admin-content-root{background: var(--bg-color)}
+.admin-content-root .panel{background: var(--admin-main-left-menu-bg-color)}
+.admin-content-root .attributes-list{background:  #fff}
+.admin-product-hcard-parent-search{background:  var(--admin-main-left-menu-bg-color)}
+
+
+.katappult-lgi-menu{background:transparent;border-top:none;border:none;color: var(--admin-left-menu-color)}
+.secondary-context-menu .active{background: var(--admin-left-menu-active-bg-color);color: #333}
+.katappult-lgi-menu:hover{opacity: 1;color: #494f87;background: var(--admin-left-menu-hover-bg-color)}
+
+.portlet-header .form-control{background: #FAFAFA}
+
+.admin-details-content .attributes-list{background: #fff}
+.default-footer-version{color: #fff}

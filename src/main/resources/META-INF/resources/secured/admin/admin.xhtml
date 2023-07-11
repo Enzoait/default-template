@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template.xhtml">
+
+<ui:define name="title">Katappult live demo - #{userSessionMap.applicationFriendlyName}</ui:define>
+<ui:define name="content">
+ <div class="admin-page k-layout-admin-page">
+<div class="mb-2">
+                <h:form>
+                    <p:breadCrumb class="background_options">
+                        <p:menuitem value="Zero" class="page_title"/>
+                        <p:menuitem value="Administration" class="page_title"/>
+                    </p:breadCrumb>
+                </h:form>
+            </div>
+<div class="admin-items">
+ <div class="admin-each-link">
+      <h2>Badge</h2>
+      <p:link class="icon" outcome="/secured/admin/Badge/badgeList.xhtml">
+         <i class="fa fa-angle-right fa-lg" />
+      </p:link>
+   </div>
+ <div class="admin-each-link">
+      <h2>Pointeur</h2>
+      <p:link class="icon" outcome="/secured/admin/Pointer/pointerList.xhtml">
+         <i class="fa fa-angle-right fa-lg" />
+      </p:link>
+   </div>
+ <div class="admin-each-link">
+      <h2>Requête</h2>
+      <p:link class="icon" outcome="/secured/admin/CardRequest/cardRequestList.xhtml">
+         <i class="fa fa-angle-right fa-lg" />
+      </p:link>
+   </div>
+ <div class="admin-each-link">
+      <h2>Ressource</h2>
+      <p:link class="icon" outcome="/secured/admin/ResourceAccess/resourceAccessList.xhtml">
+         <i class="fa fa-angle-right fa-lg" />
+      </p:link>
+   </div>
+ <div class="admin-each-link">
+      <h2>Users</h2>
+      <p:link class="icon" outcome="/secured/admin/users/usersList.xhtml">
+         <i class="fa fa-angle-right fa-lg" />
+      </p:link>
+   </div>
+ <div class="admin-each-link">
+      <h2>System preferences</h2>
+      <p:link class="icon" outcome="/secured/admin/preferences/system.xhtml">
+         <i class="fa fa-angle-right fa-lg" />
+      </p:link>
+   </div>
+</div>
+</div>
+</ui:define>
+</ui:composition>

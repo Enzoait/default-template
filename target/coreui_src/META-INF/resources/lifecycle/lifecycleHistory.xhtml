@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <p:tab title="Historique" rendered="#{isTypeOrLifecycleManaged}">
+        <p:chronoline value="#{lifecycleHistories}" var="history" layout="vertical" align="alternate">
+            <p:card styleClass="katappult-metadata-chronoline">
+                <f:facet name="title">
+                    #{history.event}
+                </f:facet>
+                <f:facet name="subtitle">
+                    #{history.date}, par #{history.user}
+                </f:facet>
+            </p:card>
+        </p:chronoline>
+    </p:tab>
+
+
+</ui:composition>

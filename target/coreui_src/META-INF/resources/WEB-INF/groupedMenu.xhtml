@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:sb="http://primefaces.org/siberia" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <div class="root-header-menu">
+
+        <p:outputPanel rendered="#{userSessionMap.currentUserSessionDatas.hasRoleInApplicationContainer('ROLE_ADMIN')
+                        || userSessionMap.currentUserSessionDatas.hasRoleInApplicationContainer('ROLE_SUPERADMIN')}">
+            <sb:menu widgetVar="SiberiaMenuWidget">
+                <p:menuitem id="m_1" value="Administration" outcome="/secured/admin/admin"/>
+            </sb:menu>
+        </p:outputPanel>
+
+    </div>
+
+    <style type="text/css">
+        .header-version-name{
+            color: #fff;
+            margin-top: 1.4rem;
+            border: 1px solid #fff;
+            border-radius: 12px;
+            height: 24px;
+            padding: 4px 8px;
+            margin-left: 2rem;
+            font-weight: 300;
+        }
+    </style>
+
+</ui:composition>

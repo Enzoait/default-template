@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template.xhtml">
+
+<ui:define name="title">Katappult live demo - #{userSessionMap.applicationFriendlyName}</ui:define>
+<ui:define name="content">
+ <div class="home-page k-layout-home-page">
+<div class="mb-2">
+                <h:form>
+                    <p:breadCrumb class="background_options">
+                        <p:menuitem value="Zero" class="page_title"/>
+                        <p:menuitem value="Home" class="page_title"/>
+                    </p:breadCrumb>
+                </h:form>
+            </div>
+<div class="info_boxes"><div class="grid ui-fluid mt-3 k-dashboard3X1">
+
+<a href="/secured/admin/Badge/badgeList.xhtml" style="text-decoration: none"><div class="boxes">
+<img src="/img/warning.svg" class="box_img"/>
+                <div class="box-content">
+                    <p class="title">Badge</p>
+                    <p class="desc">#{badgeController.dashboardModel}</p>
+                    </div>
+            </div></a>
+<a href="/secured/admin/Pointer/PointerList.xhtml" style="text-decoration: none"><div class="boxes">
+<img src="/img/warning.svg" class="box_img"/>
+                <div class="box-content">
+                    <p class="title">Pointer</p>
+                    <p class="desc">#{pointerController.dashboardModel}</p>
+                    </div>
+            </div></a>
+<a href="/secured/admin/ResourceAccess/resourceAccessList.xhtml" style="text-decoration: none"><div class="boxes">
+<img src="/img/warning.svg" class="box_img"/>
+                <div class="box-content">
+                    <p class="title">Resources</p>
+                    <p class="desc">#{resourceAccessController.dashboardModel}</p>
+                    </div>
+            </div></a>
+<a href="/secured/admin/ResourceAccess/resourceAccessList.xhtml" style="text-decoration: none"><div class="boxes">
+<img src="/img/warning.svg" class="box_img"/>
+                <div class="box-content">
+                    <p class="title">Card Request</p>
+                    <p class="desc">#{cardRequestController.dashboardModel}</p>
+                    </div>
+            </div></a>
+</div>
+</div>
+</div>
+</ui:define>
+</ui:composition>

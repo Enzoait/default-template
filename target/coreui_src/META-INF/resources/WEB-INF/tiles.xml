@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="admin.definition" template="/WEB-INF/layouts/adminLayout.jsp">
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <definition name="adminPage" extends="admin.definition">
+        <put-attribute name="body" value="/WEB-INF/views/_admin.jsp" />
+    </definition>
+
+</tiles-definitions>

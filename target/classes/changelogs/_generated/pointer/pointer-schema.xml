@@ -1,0 +1,146 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+   <changeSet id="1" author="Pointer-schema-seq">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions>
+             <not>
+                 <sequenceExists sequenceName="gen_pointer_oid_seq"/>
+             </not>
+          </preConditions>
+          <createSequence sequenceName="gen_pointer_oid_seq" incrementBy="1" startValue="1"/>
+    </changeSet>
+
+	<changeSet id="1" author="Pointer-schema">
+        <validCheckSum>ANY</validCheckSum>
+        <createTable tableName="gen_pointer">
+            <column name="OID" type="integer" defaultValueComputed="nextval('gen_pointer_oid_seq')">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+
+            <column name="CREATE_DATE" type="TIMESTAMP"  defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+            <column name="CREATED_BY" type="varchar(255)" defaultValue="system">
+                <constraints nullable="false" />
+            </column>
+            <column name="LAST_MODIFIED_BY" type="varchar(255)" defaultValue="system">
+                <constraints nullable="false" />
+            </column>
+            <column name="MODIFIED_DATE" type="TIMESTAMP"  defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+            <column name="VERSION" type="BIGINT" defaultValue="1">
+                <constraints nullable="false" />
+            </column>
+            <column name="container_oid" type="BIGINT" defaultValue="1">
+                <constraints nullable="false" />
+            </column>
+
+                    <column name="location" type="VARCHAR(255)"/>
+        <column name="identifier" type="VARCHAR(255)"/>
+        <column name="description" type="VARCHAR(255)"/>
+        <column name="name" type="VARCHAR(255)"/>
+<!--COLUMNS-->
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="5" author="Pointer-schema-type-managed">
+        <validCheckSum>ANY</validCheckSum>
+        <addColumn tableName="gen_pointer">
+            <column name="type_oid" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2" author="Pointer-schema-lfmanaged">
+        <validCheckSum>ANY</validCheckSum>
+        <insert tableName="T_LIFECYCLEMASTER">
+            <column name="name" value="Pointer lifecycle"/>
+            <column name="number" value="POINTER_0001"/>
+            <column name="description" value="Pointer lifecycle description"/>
+            <column name="container_oid" value="1"/>
+        </insert>
+        <insert tableName="T_LIFECYCLE">
+            <column name="is_latest_iteration" value="1"/>
+            <column name="iteration_number" value="1"/>
+            <column name="is_working_copy" value="0"/>
+            <column name="container_oid" value="1"/>
+            <column name="master_oid" valueComputed="(select oid from T_LIFECYCLEMASTER where name='Pointer lifecycle')"/>
+            <column name="initial_state" value="NEW"/>
+            <column name="terminal_state" value="CLOSED"/>
+        </insert>
+
+        <insert tableName="T_CONTENTITEM">
+            <column name="content_size" value="10"/>
+            <column name="md5" value="1"/>
+            <column name="rating" valueNumeric="1"/>
+            <column name="download_count" valueNumeric="1"/>
+            <column name="name" value="POINTER_LIFECYCLE"/>
+            <column name="dtype" value="PRIM"/>
+            <column name="container_oid" value="1"/>
+        </insert>
+        <insert tableName="T_CONTENTLOCATION">
+            <column name="content_type" value="BLOB"/>
+            <column name="name" value="POINTER_LIFECYCLE"/>
+            <column name="item_oid" valueComputed="(select oid from T_CONTENTITEM where name='POINTER_LIFECYCLE')"/>
+        </insert>
+        <update tableName="T_CONTENTLOCATION">
+            <column name="content_blob" valueBlobFile="/changelogs/_generated/pointer/datas/pointer-lifecycle.xml"/>
+            <where>name='POINTER_LIFECYCLE'</where>
+        </update>
+        <update tableName="T_LIFECYCLE">
+            <column name="primary_content_oid" valueComputed="(select oid from T_CONTENTITEM where name='POINTER_LIFECYCLE')"/>
+            <where>master_oid=(select oid from t_lifecyclemaster where name='Pointer lifecycle')</where>
+        </update>
+
+        <insert tableName="T_LIFECYCLETRANSITION">
+            <column name="from_state" value="NEW"/>
+            <column name="to_state" value="ACCEPTED"/>
+            <column name="action" value="SET_STATE"/>
+            <column name="lifecycle_oid" valueComputed="(select l.oid from t_lifecyclemaster m, t_lifecycle l where m.oid=l.master_oid and m.name ='Pointer lifecycle')"/>
+        </insert>
+        <insert tableName="T_LIFECYCLETRANSITION">
+            <column name="from_state" value="NEW"/>
+            <column name="to_state" value="REFUSED"/>
+            <column name="action" value="SET_STATE"/>
+            <column name="lifecycle_oid" valueComputed="(select l.oid from t_lifecyclemaster m, t_lifecycle l where m.oid=l.master_oid and m.name ='Pointer lifecycle')"/>
+        </insert>
+        <insert tableName="T_LIFECYCLETRANSITION">
+            <column name="from_state" value="ACCEPTED"/>
+            <column name="to_state" value="REFUSED"/>
+            <column name="action" value="SET_STATE"/>
+            <column name="lifecycle_oid" valueComputed="(select l.oid from t_lifecyclemaster m, t_lifecycle l where m.oid=l.master_oid and m.name ='Pointer lifecycle')"/>
+        </insert>
+        <insert tableName="T_LIFECYCLETRANSITION">
+            <column name="from_state" value="REFUSED"/>
+            <column name="to_state" value="ACCEPTED"/>
+            <column name="action" value="ADMINSET_STATE"/>
+            <column name="lifecycle_oid" valueComputed="(select l.oid from t_lifecyclemaster m, t_lifecycle l where m.oid=l.master_oid and m.name ='Pointer lifecycle')"/>
+        </insert>
+        <insert tableName="T_LIFECYCLETRANSITION">
+            <column name="from_state" value="ACCEPTED"/>
+            <column name="to_state" value="NEW"/>
+            <column name="action" value="ADMINSET_STATE"/>
+            <column name="lifecycle_oid" valueComputed="(select l.oid from t_lifecyclemaster m, t_lifecycle l where m.oid=l.master_oid and m.name ='Pointer lifecycle')"/>
+        </insert>
+        <insert tableName="T_LIFECYCLETRANSITION">
+            <column name="from_state" value="ACCEPTED"/>
+            <column name="to_state" value="CLOSED"/>
+            <column name="action" value="ADMINSET_STATE"/>
+            <column name="lifecycle_oid" valueComputed="(select l.oid from t_lifecyclemaster m, t_lifecycle l where m.oid=l.master_oid and m.name ='Pointer lifecycle')"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="3" author="Pointer-schema-lfmanaged">
+        <validCheckSum>ANY</validCheckSum>
+        <addColumn tableName="gen_pointer">
+            <column name="lifecycle_oid" type="BIGINT"/>
+            <column name="lifecycle_state" type="VARCHAR(40)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
+

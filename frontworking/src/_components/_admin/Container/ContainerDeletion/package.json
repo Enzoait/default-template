@@ -1,0 +1,6 @@
+{
+  "name": "ContainerDeletion",
+  "version": "0.0.0",
+  "private": true,
+  "main": "ContainerDeletion.js"
+}

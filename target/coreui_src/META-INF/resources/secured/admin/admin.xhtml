@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Administration - #{userSessionMap.applicationFriendlyName}</ui:define>
+
+    <ui:define name="content">
+
+        <h:form>
+            <p:breadCrumb>
+                <p:menuitem value="Zero"/>
+                <p:menuitem value="Administration"/>
+            </p:breadCrumb>
+        </h:form>
+
+        <div class="admin-items mt-2">
+            <div class="admin-each-link">
+                <h2>Users</h2>
+                <p:linkButton class="icon" outcome="/secured/admin/users/usersList.xhtml">
+                    <i class="fa fa-angle-right fa-lg"/>
+                </p:linkButton>
+            </div>
+            <div class="admin-each-link">
+                <h2>System preferences</h2>
+                <p:linkButton class="icon" outcome="/secured/admin/preferences/system.xhtml">
+                    <i class="fa fa-angle-right fa-lg"/>
+                </p:linkButton>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

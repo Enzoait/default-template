@@ -1,0 +1,6 @@
+{
+  "name": "AppVersions",
+  "version": "0.0.0",
+  "private": true,
+  "main": "AppVersions.js"
+}

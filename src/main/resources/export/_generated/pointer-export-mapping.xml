@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mappingFile>
+    <command name="EXPORT_FOR_UPDATE" targetEntity="com.katappult.cloud.platform.generated.model.Pointer">
+        <column id="command" constant="UPDATE_POINTER" />
+        <column id="fullIdentifier" propertyEditor="ObjectFullIdentifierPropetyEditor"/>
+        <column id="name" mandatory="false"/>
+        <column id="description" mandatory="false"/>
+        <column id="identifier" mandatory="false"/>
+        <column id="location" mandatory="false"/>
+        <!-- EXPORT_ATTRIBUTES_1 -->
+
+    </command>
+
+    <command name="EXPORT" targetEntity="com.katappult.cloud.platform.generated.model.Pointer">
+        <column id="name" mandatory="false"/>
+        <column id="description" mandatory="false"/>
+        <column id="identifier" mandatory="false"/>
+        <column id="location" mandatory="false"/>
+        <!-- EXPORT_ATTRIBUTES_2 -->
+    </command>
+</mappingFile>

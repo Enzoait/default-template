@@ -1,0 +1,8 @@
+event_key;event_class
+
+PRE_CREATE_BADGE;com.katappult.cloud.platform.generated.model.event.PreCreateBadge
+PRE_DELETE_BADGE;com.katappult.cloud.platform.generated.model.event.PreDeleteBadge
+PRE_UPDATE_BADGE;com.katappult.cloud.platform.generated.model.event.PreUpdateBadge
+POST_CREATE_BADGE;com.katappult.cloud.platform.generated.model.event.PostCreateBadge
+POST_DELETE_BADGE;com.katappult.cloud.platform.generated.model.event.PostDeleteBadge
+POST_UPDATE_BADGE;com.katappult.cloud.platform.generated.model.event.PostUpdateBadge

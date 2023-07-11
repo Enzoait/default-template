@@ -1,0 +1,30 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="coreui" author="1">
+        <insert tableName="T_USERPROFILE">
+            <column name="PROFILE_ID" value="DEVELOPER"/>
+            <column name="ACTIVE" value="1"/>
+            <column name="NAME" value="Développeur"/>
+            <column name="CONTAINER_OID" valueComputed="(select oid from T_CONTAINER where path='/')"/>
+        </insert>
+        <insert tableName="T_USERPROFILE">
+            <column name="PROFILE_ID" value="VALIDATOR"/>
+            <column name="ACTIVE" value="1"/>
+            <column name="NAME" value="Valideur"/>
+            <column name="CONTAINER_OID" valueComputed="(select oid from T_CONTAINER where path='/')"/>
+        </insert>
+        <insert tableName="T_USERPROFILE">
+            <column name="PROFILE_ID" value="CREATOR"/>
+            <column name="ACTIVE" value="1"/>
+            <column name="NAME" value="Créateur"/>
+            <column name="DESCRIPTION" value="Créateur"/>
+            <column name="CONTAINER_OID" valueComputed="(select oid from T_CONTAINER where path='/')"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

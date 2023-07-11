@@ -1,0 +1,32 @@
+$primaryColor:#6F85FE;
+$primaryTextColor:#ffffff;
+
+//menu
+$menuBgColor:#191a1c;
+$menuBorderColor:#191a1c;
+$rootMenuitemTextColor:#f8fafc;
+$rootMenuitemIconColor:#f8fafc;
+$rootMenuitemHoverTextColor:#6F85FE;
+$activeRootMenuitemTextColor:$primaryColor;
+$activeRootMenuitemBorderColor:$primaryColor;
+$activeRootMenuitemIconColor:$primaryColor;
+$megamenuRootMenuBorderColor:rgba(255,255,255,.16);
+$submenuBgColor:#191a1c;
+$horizontalSubmenuBgColor:#191a1c;
+$submenuItemTextColor:#f8fafc;
+$submenuItemIconColor:#f8fafc;
+$submenuItemHoverTextColor:$primaryColor;
+$activeSubmenuItemTextColor:$primaryColor;
+$activeSubmenuItemIconColor:$primaryColor;
+$activeSubMenuitemBorderColor:$primaryColor;
+
+//topbar
+$topbarBgColor: #191a1c;
+$topbarBorderColor: #252729;
+$topbarBgImage: none;
+$topbarItemTextColor: #f8fafc;
+$topbarItemSecondaryTextColor: #8b8e90;
+$topbarItemTextHoverColor: $primaryColor;
+$topbarItemBorderColor: rgba(255,255,255,0.2);
+
+@import '../../sass/layout/_layout';

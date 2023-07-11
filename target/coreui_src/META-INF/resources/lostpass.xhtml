@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/login-template.xhtml">
+
+    <ui:define name="content">
+        <h:form style="width: 100%">
+
+            <section class='k-login-area'>
+                <div class='k-login-inner'>
+                    <a href="/secured/home.xhtml">
+                        <img  src='/images/KatappultLogo.svg' width="120px"/>
+                        <h4>WebApp live demo</h4>
+                    </a>
+
+                    <div class='k-login-form-container'>
+                        <h3>Recover my password</h3>
+
+                        <p:messages id="msgs"/>
+
+                        <p:inputText placeholder="Your email" id="username" value="#{loginController.username}" required="true"/>
+                        <p:commandButton value="Recover" styleClass="button-primary  login-button"
+                                         process="login-panel @this"
+                                         icon="pi pi-arrow-right"
+                                         ajax="false" id="loginButton"
+                                         action="#{loginController.lostPass}"/>
+
+                        <div class='k-login-footer'>
+                            <p>Already haven an account?</p>
+                            <a href="/login.xhtml">Login</a>
+                        </div>
+                    </div>
+
+                    <p>www.katappult.cloud © 2023. All rights reserved.</p>
+                </div>
+            </section>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+

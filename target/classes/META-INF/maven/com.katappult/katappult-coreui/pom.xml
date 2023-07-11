@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>katappult-platform</artifactId>
+        <groupId>com.katappult</groupId>
+        <version>0.0.107</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>katappult-coreui</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <docker-image.name>${artifactId}</docker-image.name>
+        <context.root />
+        <env>local-h2</env>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.katappult</groupId>
+            <artifactId>katappult-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Provide JUnit 5 API -->
+        <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.subethamail</groupId>
+            <artifactId>subethasmtp</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.7.3</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <mainClass>com.katappult.coreui.KatappultCoreMainApplication</mainClass>
+                            <arguments>
+                                <argument>--directories=webapp</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>additional-resources</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src/test/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>com.katappult.core.services.integrationtests.**</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <forkCount>1</forkCount>
+                    <testFailureIgnore>false</testFailureIgnore>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-admin-ui</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks name="copy frontend src">
+                                <mkdir dir="target/classes/frontend/public" />
+                                <mkdir dir="target/classes/frontend/src" />
+
+                                <copy todir="target/classes/frontend/public" overwrite="true">
+                                    <fileset dir="frontend/public" />
+                                </copy>
+                                <copy todir="target/classes/frontend/src" overwrite="true">
+                                    <fileset dir="frontend/src" />
+                                </copy>
+
+                                <copy todir="target/classes/frontend" file="frontend/jsconfig.json" overwrite="true" />
+                                <copy todir="target/classes/frontend" file="frontend/package.json" overwrite="true" />
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>dropDb</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>properties-maven-plugin</artifactId>
+                        <version>${properties-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>read-project-properties</goal>
+                                </goals>
+                                <configuration>
+                                    <files>
+                                        <file>${project.build.outputDirectory}/env/${env}/application.properties</file>
+                                    </files>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <version>${sql-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>drop-create-schema</id>
+                                <configuration>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <driver>${spring.datasource.driver-class-name}</driver>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <url>${spring.datasource.url}</url>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <username>${spring.datasource.username}</username>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <password>${spring.datasource.password}</password>
+                                    <srcFiles>
+                                        <srcFile>src/main/resources/env/${env}/dropDb.sql</srcFile>
+                                    </srcFiles>
+                                </configuration>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>postgresql</groupId>
+                                <artifactId>postgresql</artifactId>
+                                <version>${postgres-liquibase-lib-version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.h2database</groupId>
+                                <artifactId>h2</artifactId>
+                                <version>${h2.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>updateDb</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>properties-maven-plugin</artifactId>
+                        <version>${properties-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>read-project-properties</goal>
+                                </goals>
+                                <configuration>
+                                    <files>
+                                        <file> ${project.build.outputDirectory}/env/${env}/application.properties</file>
+                                    </files>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>4.5.0</version>
+                        <configuration>
+                            <changeLogFile>changelogs/katappult-coreapp-dbchangelog-master.xml</changeLogFile>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <driver>${spring.datasource.driver-class-name}</driver>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <url>${spring.datasource.url}</url>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <username>${spring.datasource.username}</username>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <password>${spring.datasource.password}</password>
+                            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                            <verbose>true</verbose>
+                            <logging>debug</logging>
+                            <dropFirst>false</dropFirst>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>postgresql</groupId>
+                                <artifactId>postgresql</artifactId>
+                                <version>8.4-701.jdbc3</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.h2database</groupId>
+                                <artifactId>h2</artifactId>
+                                <version>${h2.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>updateSql</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>properties-maven-plugin</artifactId>
+                        <version>${properties-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>read-project-properties</goal>
+                                </goals>
+                                <configuration>
+                                    <files>
+                                        <file> ${project.build.outputDirectory}/src/main/resources/env/${env}/application.properties</file>
+                                    </files>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>${liquibase-maven-plugin.version}</version>
+                        <configuration>
+                            <changeLogFile>changelogs/katappult-coreapp-dbchangelog-master.xml</changeLogFile>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <driver>${spring.datasource.driver-class-name}</driver>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <url>${spring.datasource.url}</url>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <username>${spring.datasource.username}</username>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <password>${spring.datasource.password}</password>
+                            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                            <dropFirst>false</dropFirst>
+                            <outputFileEncoding>UTF-8</outputFileEncoding>
+                            <migrationSqlOutputFile>${project.basedir}/src/main/resources/${project.version}.sql</migrationSqlOutputFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>updateSQL</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>npm-install</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <configuration>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                            <workingDirectory>frontend</workingDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>Install node and npm locally</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>install-node-and-npm</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>npm install</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>install --legacy-peer-deps --prefer-offline --no-audit --progress=false</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>npm-build</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <configuration>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                            <workingDirectory>frontend</workingDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>npm run build</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run build</arguments>
+                                    <environmentVariables>
+                                        <REACT_APP_CLIENT_LOGIN_URL>/login.xhtml</REACT_APP_CLIENT_LOGIN_URL>
+                                        <REACT_APP_CLIENT_ROOT_URL>/home.xhtml</REACT_APP_CLIENT_ROOT_URL>
+                                        <REACT_APP_ROUTER_BASE>/</REACT_APP_ROUTER_BASE>
+                                        <REACT_APP_CONTEXT_ROOT>${context.root}</REACT_APP_CONTEXT_ROOT>
+                                        <PUBLIC_URL>/</PUBLIC_URL>
+                                        <REACT_APP_BUILD_DATETIME>${timestamp}</REACT_APP_BUILD_DATETIME>
+                                        <REACT_APP_BUILD_VERSION>${pom.version}</REACT_APP_BUILD_VERSION>
+                                        <REACT_APP_VERSION>${pom.version}</REACT_APP_VERSION>
+                                    </environmentVariables>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>npm-build-local</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <configuration>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                            <workingDirectory>frontend</workingDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>npm run build</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run build</arguments>
+                                    <environmentVariables>
+                                        <REACT_APP_CLIENT_LOGIN_URL>/login.xhtml</REACT_APP_CLIENT_LOGIN_URL>
+                                        <REACT_APP_CLIENT_ROOT_URL>/home.xhtml</REACT_APP_CLIENT_ROOT_URL>
+                                        <REACT_APP_ROUTER_BASE>/</REACT_APP_ROUTER_BASE>
+                                        <REACT_APP_CONTEXT_ROOT>${context.root}</REACT_APP_CONTEXT_ROOT>
+                                        <PUBLIC_URL>/</PUBLIC_URL>
+                                        <REACT_APP_BUILD_DATETIME>${timestamp}</REACT_APP_BUILD_DATETIME>
+                                        <REACT_APP_BUILD_VERSION>${pom.version}</REACT_APP_BUILD_VERSION>
+                                        <REACT_APP_VERSION>${pom.version}</REACT_APP_VERSION>
+                                    </environmentVariables>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-build-folder</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks name="copy build folder to frontendBuild">
+                                        <delete includeEmptyDirs="true" failonerror="false">
+                                            <fileset dir="src/main/resources/frontendBuild" />
+                                        </delete>
+
+                                        <copy todir="src/main/resources/frontendBuild">
+                                            <fileset dir="frontend/build" />
+                                        </copy>
+                                        <copy todir="target/classes/frontendBuild">
+                                            <fileset dir="src/main/resources/frontendBuild" />
+                                        </copy>
+                                    </tasks>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>docker-snapshot</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>${jib-maven-plugin.version}</version>
+                        <configuration>
+                            <from>
+                                <image>neocloud4j/base-jdk17</image>
+                            </from>
+                            <to>
+                                <image>katappult/${docker-image.name}:${project.version}</image>
+                                <auth>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <username>${ENV_DOCKER_HUB_USERNAME}</username>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <password>${ENV_DOCKER_HUB_PASSWORD}</password>
+                                </auth>
+                            </to>
+                            <tags>
+                                <tag>${project.version}</tag>
+                            </tags>
+                            <container>
+                                <volumes>
+                                    <volume>/logs</volume>
+                                    <volume>/spring-config</volume>
+                                    <volume>/katappult/thumbnails</volume>
+                                    <volume>/katappult/localDb</volume>
+                                </volumes>
+                            </container>
+                            <extraDirectories>
+                                <permissions>
+                                    <permission>
+                                        <file>/katappult/localDb</file>
+                                        <mode>777</mode>
+                                    </permission>
+                                    <permission>
+                                        <file>/katappult/localDb/${artifactId}.mv.db</file>
+                                        <mode>777</mode>
+                                    </permission>
+                                    <permission>
+                                        <file>/katappult/localDb/${artifactId}.trace.db</file>
+                                        <mode>777</mode>
+                                    </permission>
+                                </permissions>
+                                <paths>
+                                    <path>
+                                        <from>target/localDb</from>
+                                        <into>/katappult/localDb</into>
+                                    </path>
+                                </paths>
+                            </extraDirectories>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>dockerBuild</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/login-template.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="register_form">
+
+            <div class='k-root-layout'>
+                <section class='k-login-area k-register-area'>
+
+                    <p:messages id="messages"/>
+
+                    <div class='k-login-inner'>
+                        <a href="/secured/home.xhtml">
+                            <img src='/images/KatappultLogo.svg' width="120px"/>
+                            <h4>WebApp live demo</h4>
+                        </a>
+
+                        <div class='k-login-form-container'>
+                            <h3>Create an account</h3>
+
+                            <div class="k-account-type">
+                                <p:outputLabel for="accountType" value="Register as:"/>
+                                <p:selectOneMenu id="accountType" value="#{registerController.accountSubtype}"  converter="#{typeFacesConverter}">
+                                    <p:ajax listener="#{registerController.onAccountTypeChange}" update="register_form"/>
+                                    <f:selectItems value="#{registerController.accountSubtypes}"  var="type" itemLabel="#{type.displayName}"/>
+                                </p:selectOneMenu>
+                            </div>
+
+                            <p:outputPanel id="formPanel" style="width:100%">
+                                <h:panelGrid columns="1" cellpadding="2"
+                                             autocomplete="new-password"
+                                             id="registerPersonalPanel" width="100%"
+                                             rendered="#{registerController.selectedAccountTypeIsAnOrganisation eq false}">
+                                    <p:inputText id="firstname" placeholder="Lastname"
+                                                 value="#{registerController.firstname}" required="true"/>
+
+                                    <p:inputText id="lastname" placeholder="Firstname"
+                                                 autocomplete="new-password"
+                                                 value="#{registerController.lastname}" required="true"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="1" cellpadding="2" width="100%"
+                                             rendered="#{registerController.selectedAccountTypeIsAnOrganisation eq true}">
+                                    <p:inputText id="organisationName" placeholder="Organization name"
+                                                 value="#{registerController.organisationName}" required="true"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="1" cellpadding="2"  id="registerPanel" width="100%">
+                                    <p:inputText id="email" placeholder="Your email" value="#{registerController.email}" required="true"/>
+
+                                    <p:password id="password" placeholder="Password"
+                                                autocomplete="new-password"
+                                                value="#{registerController.password}" required="true">
+                                        <f:validateLength minimum="6"/>
+                                        <p:ajax update=":register_form:messages" event="keyup"/>
+                                    </p:password>
+
+                                    <p:password id="validatePassword" placeholder="Validate password"
+                                                autocomplete="new-password"
+                                                value="#{registerController.validatePassword}" required="true"/>
+                                </h:panelGrid>
+                            </p:outputPanel>
+
+                            <p:commandButton value="Register"
+                                             styleClass="button-primary login-button"
+                                             process="registerPanel @this"
+                                             ajax="false" id="loginButton"
+                                             action="#{registerController.createAccount}"/>
+
+                            <div class='k-login-footer'>
+                                <p>Already have an account?</p>
+                                <a href="/login.xhtml">Login</a>
+                            </div>
+                        </div>
+
+                        <p>www.katappult.cloud © 2023. All rights reserved.</p>
+                    </div>
+                </section>
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

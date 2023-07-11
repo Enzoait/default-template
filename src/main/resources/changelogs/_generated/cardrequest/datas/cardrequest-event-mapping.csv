@@ -1,0 +1,8 @@
+event_key;event_class
+
+PRE_CREATE_CARDREQUEST;com.katappult.cloud.platform.generated.model.event.PreCreateCardRequest
+PRE_DELETE_CARDREQUEST;com.katappult.cloud.platform.generated.model.event.PreDeleteCardRequest
+PRE_UPDATE_CARDREQUEST;com.katappult.cloud.platform.generated.model.event.PreUpdateCardRequest
+POST_CREATE_CARDREQUEST;com.katappult.cloud.platform.generated.model.event.PostCreateCardRequest
+POST_DELETE_CARDREQUEST;com.katappult.cloud.platform.generated.model.event.PostDeleteCardRequest
+POST_UPDATE_CARDREQUEST;com.katappult.cloud.platform.generated.model.event.PostUpdateCardRequest

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mappingFile>
+    <command name="EXPORT_FOR_UPDATE" targetEntity="com.katappult.cloud.platform.generated.model.Badge">
+        <column id="command" constant="UPDATE_BADGE" />
+        <column id="fullIdentifier" propertyEditor="ObjectFullIdentifierPropetyEditor"/>
+        <column id="identification" mandatory="false"/>
+        <column id="expirationdate" mandatory="false" 			propertyEditor="DateTimeExportStringPropertyEditor" />
+<column id="isactive" mandatory="false"/>
+        <!-- EXPORT_ATTRIBUTES_1 -->
+
+    </command>
+
+    <command name="EXPORT" targetEntity="com.katappult.cloud.platform.generated.model.Badge">
+        <column id="identification" mandatory="false"/>
+        <column id="expirationdate" mandatory="false" 			propertyEditor="DateTimeExportStringPropertyEditor" />
+<column id="isactive" mandatory="false"/>
+        <!-- EXPORT_ATTRIBUTES_2 -->
+    </command>
+</mappingFile>

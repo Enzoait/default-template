@@ -1,0 +1,6 @@
+{
+  "name": "LifecycleManagedHistory",
+  "version": "0.0.0",
+  "private": true,
+  "main": "LifecycleManagedHistory.js"
+}

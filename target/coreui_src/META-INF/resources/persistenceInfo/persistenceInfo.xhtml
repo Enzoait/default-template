@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+        <h:panelGrid columns="2" cellpadding="7">
+            <h:outputLabel for="createDate" value="Creation"/>
+            <p:inputText id="createDate" value="#{elementMetadata.persistenceInfo.createDate}" disabled="true"/>
+
+            <h:outputLabel for="createdBy" value="Created by"/>
+            <p:inputText id="createdBy" value="#{elementMetadata.persistenceInfo.lastModifiedBy}" disabled="true"/>
+
+            <h:outputLabel for="modifDate" value="Last modification"/>
+            <p:inputText id="modifDate" value="#{elementMetadata.persistenceInfo.lastModifiedDate}" disabled="true"/>
+
+            <h:outputLabel for="modifBy" value="Updated by"/>
+            <p:inputText id="modifBy" value="#{elementMetadata.persistenceInfo.lastModifiedBy}" disabled="true"/>
+        </h:panelGrid>
+
+</ui:composition>

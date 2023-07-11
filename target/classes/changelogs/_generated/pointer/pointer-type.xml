@@ -1,0 +1,59 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+ 
+ <changeSet author="Pointer-type" id="1">
+ <insert tableName="T_SOFTTYPE">
+            <column name="display_name" value="PointerType" />
+            <column name="logical_name" value="PointerType"/>
+            <column name="logical_path" value="com.katappult.cloud.platform.generated.types.PointerType"/>
+            <column name="base_class" value="com.katappult.cloud.platform.generated.model.Pointer"/>
+            <column name="is_instanciable" value="1"/>
+            <column name="is_enabled" value="1"/>
+            <column name="discrimn_col" value="0"/>
+            <column name="container_oid" value="1"/>
+            <column name="parent_id" valueComputed="NULL" />
+            <column name="lifecycle_master_id" valueComputed="(select oid from t_lifecyclemaster where name='Pointer lifecycle')"/>
+        </insert>
+ <insert tableName="T_SOFTTYPE">
+            <column name="display_name" value="BasicPointer" />
+            <column name="logical_name" value="BasicPointer"/>
+            <column name="logical_path" value="com.katappult.cloud.platform.generated.types.PointerType/BasicPointer"/>
+            <column name="base_class" value="com.katappult.cloud.platform.generated.model.Pointer"/>
+            <column name="is_instanciable" value="1"/>
+            <column name="is_enabled" value="1"/>
+            <column name="discrimn_col" value="0"/>
+            <column name="container_oid" value="1"/>
+            <column name="parent_id" valueComputed="(select oid from T_SOFTTYPE where logical_path='com.katappult.cloud.platform.generated.types.PointerType')" />
+            <column name="lifecycle_master_id" valueComputed="(select oid from t_lifecyclemaster where name='')"/>
+        </insert>
+ <insert tableName="T_SOFTTYPE">
+            <column name="display_name" value="SecuredPointer" />
+            <column name="logical_name" value="SecuredPointer"/>
+            <column name="logical_path" value="com.katappult.cloud.platform.generated.types.PointerType/SecuredPointer"/>
+            <column name="base_class" value="com.katappult.cloud.platform.generated.model.Pointer"/>
+            <column name="is_instanciable" value="1"/>
+            <column name="is_enabled" value="1"/>
+            <column name="discrimn_col" value="0"/>
+            <column name="container_oid" value="1"/>
+            <column name="parent_id" valueComputed="(select oid from T_SOFTTYPE where logical_path='com.katappult.cloud.platform.generated.types.PointerType')" />
+            <column name="lifecycle_master_id" valueComputed="(select oid from t_lifecyclemaster where name='')"/>
+        </insert>
+ <insert tableName="T_SOFTTYPE">
+            <column name="display_name" value="HighlySecuredPointer" />
+            <column name="logical_name" value="HighlySecuredPointer"/>
+            <column name="logical_path" value="com.katappult.cloud.platform.generated.types.PointerType/HighlySecuredPointer"/>
+            <column name="base_class" value="com.katappult.cloud.platform.generated.model.Pointer"/>
+            <column name="is_instanciable" value="1"/>
+            <column name="is_enabled" value="1"/>
+            <column name="discrimn_col" value="0"/>
+            <column name="container_oid" value="1"/>
+            <column name="parent_id" valueComputed="(select oid from T_SOFTTYPE where logical_path='com.katappult.cloud.platform.generated.types.PointerType')" />
+            <column name="lifecycle_master_id" valueComputed="(select oid from t_lifecyclemaster where name='')"/>
+        </insert>
+ 
+ </changeSet>
+
+</databaseChangeLog>
